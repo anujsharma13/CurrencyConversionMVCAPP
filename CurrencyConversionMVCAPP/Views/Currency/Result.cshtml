@@ -1,0 +1,16 @@
+﻿@model CurrencyConversionMVCAPP.ViewModels.CurrencyResultViewModel
+
+<div class="card-header border-dark">
+
+    <label class="control-label" style="font-size: large; font-style: oblique; font-family: 'Times New Roman'; background-color: wheat; border: solid; padding:5px"> Converted Value</label>
+</div>
+<div class="card-header text-center">
+    <img src="~/images/currency.jpg" sizes="50px 50px" />
+</div>
+<img src=@Model.ImgSrc alt="Flag"/>
+<div class="text-center">
+    <div class="card-header bg-gradient">
+        <h1>@Model.currency.Amount @Model.currency.Source = @Model.Result @Model.currency.Destination</h1>
+    </div>
+    <img src=@Model.ImgDest alt="Flag" />
+</div>

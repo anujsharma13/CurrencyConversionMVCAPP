@@ -1,0 +1,45 @@
+﻿@model CurrencyConversionMVCAPP.Models.Currency
+<
+<div class="card-header border-dark">
+
+    <label class="control-label" style="font-size: xx-large; font-style: oblique; font-family: 'Times New Roman'; background-color: wheat; border: solid; padding: 5px"> Converter</label>
+</div>
+<form asp-action="Index" asp-controller="Currency" method="post">
+
+    <div class="card-header text-center">
+        <div class="text-center card-header bg-transparent border-dark">
+
+            <label class="control-label" style="font-size: large; font-style: oblique; font-family: 'Times New Roman'; background-color: wheat; border: solid; padding:5px"> Select Source Currency</label>
+        </div>
+        <div class="card-header text-center">
+            <img src="~/images/currency.jpg" sizes="50px 50px" />
+        </div>
+        <div class="card-header text-center" style="padding:5px; border:thin">
+            <select asp-for="@Model.Source" asp-items="@Model.CurrencyNames"></select>
+            <span asp-validation-for="@Model.Source" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="card-header text-center">
+        <div class="text-center card-header bg-transparent border-dark">
+
+            <label class="control-label" style="font-size: large; font-style: oblique; font-family: 'Times New Roman'; background-color: wheat; border: solid ;padding:5px "> Select Destination Currency</label>
+        </div>
+
+        <div class="card-header text-center">
+            <img src="~/images/currency.jpg" sizes="50px 50px" />
+        </div>
+        <div class="card-header text-center">
+            <select asp-for="@Model.Destination" asp-items="@Model.CurrencyNames">
+            </select>
+            <span asp-validation-for="@Model.Destination" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="card-header text-center">
+        <label asp-for="@Model.Amount"></label>
+        <input asp-for="@Model.Amount" type="number" min="1" step="1" max="@int.MaxValue" value="1" />
+        <span asp-validation-for="@Model.Amount"></span>
+    </div>
+    <div class="card-header text-center">
+        <button type="submit"> Convert </button>
+    </div>
+</form>

@@ -1,4 +1,5 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿const droplist = document.querySelectorAll(".drop-list select");
 
-// Write your JavaScript code.
+for (let i = 0; i < droplist.length; i++) {
+    for(currency_code in )
+}
