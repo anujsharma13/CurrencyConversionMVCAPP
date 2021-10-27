@@ -45,8 +45,7 @@ namespace CurrencyConversionMVCAPP.Controllers
             }
             try
             {
-                ApiHelper apiHelper = new ApiHelper();
-                 result = await apiHelper.Helper(_currency.Source, _currency.Destination);
+                result = await _client.apidata(_currency.Source, _currency.Destination);
             }
             catch(Exception e)
             {

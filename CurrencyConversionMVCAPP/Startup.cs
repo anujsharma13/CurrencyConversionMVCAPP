@@ -25,12 +25,12 @@ namespace CurrencyConversionMVCAPP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddHttpClient("hello", c =>
+            services.AddRefitClient<apicall>().ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri("http://localhost:5000");
-            })
-            .AddTypedClient(c =>RestService.For<apicall>(c));
-
+                c.BaseAddress = new Uri(@"https://currency-exchange.p.rapidapi.com");
+                c.DefaultRequestHeaders.Add("x-rapidapi-key", "64892e83d5msh2c4dfea8d121897p1f23a7jsnafd1a9f55ca0");
+                c.Timeout = TimeSpan.FromSeconds(10);
+            });
             services.AddControllers();
         }
 

@@ -21,7 +21,7 @@ namespace CurrencyConversionMVCAPP.Repository
            
                 try
                 {
-                    var call = RestService.For<apicall>("https://currency-exchange.p.rapidapi.com");
+                    var call = RestService.For<apicall>("");
                     body = await call.apidata(source, destination);
 
                 }
