@@ -13,23 +13,6 @@ namespace CurrencyConversionMVCAPP.Repository
     {
        
 
-        public double result;
-        public async Task<double> Helper(string source,string destination)
-            {
-          
-            double body;
-           
-                try
-                {
-                    var call = RestService.For<apicall>("");
-                    body = await call.apidata(source, destination);
-
-                }
-                catch (Exception w)
-                {
-                    throw new InvalidOperationException(w.Message);
-                }
-            return body;
-            }
+       
     }
 }

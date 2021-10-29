@@ -1,43 +1,138 @@
-﻿@model CurrencyConversionMVCAPP.Models.Currency
+﻿@*@model CurrencyConversionMVCAPP.Models.Currency
+        <div class="wrapper">
+
+
+            <form asp-action="Index" asp-controller="Currency" method="post">
+
+
+                <div class="drop-list">
+
+                        <p> From </p>
+                        <p> To</p>
+
+                    </div>
+                    <div class="drop-list">
+                        <img class="icon" src="https://flagcdn.com/48x36/za.png" />
+                        <select class="select-box" asp-for="@Model.Source" asp-items="@Model.CurrencyNames"></select>
+                        <img class="icon" src="https://flagcdn.com/48x36/za.png" />
+                        <select class="select-box" asp-for="@Model.Destination" asp-items="@Model.CurrencyNames"></select>
+
+                        </div>
+
+                <div class="drop-list" >
+                    <strong>
+
+                    </strong>
+
+                </div>
+
+                <div  style="margin-top:20px; padding-right:70px">
+                    <center>
+                        <label asp-for="@Model.Amount"></label>
+                        <input asp-for="@Model.Amount" type="number" min="1" step="1" max="@int.MaxValue" value="1" />
+                        <span asp-validation-for="@Model.Amount"></span>
+                    </center>
+                </div>
+                <div ><center>
+        <button class="button" type="submit" style="margin-top:30px;">Get Exchange Rates </button>
+    </center>
+                </div>
+            </form>
+        </div>*@
+@model CurrencyConversionMVCAPP.Models.Currency
+<div>
+
     <div class="wrapper">
-
-        <header>Currency Converter</header>
-
         <form asp-action="Index" asp-controller="Currency" method="post">
 
 
-            <div class="drop-list">
-                <div class="from">
-                    <p> From </p>
-                    
-                    <div class="drop-list">
-                        <img src="https://flagcdn.com/48x36/za.png" />
-                        <select  class="select-box" asp-for="@Model.Source" asp-items="@Model.CurrencyNames"></select>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="drop-list">
-                <div class="to">
-                    <p > To</p>
-                    
-                    <div class="drop-list">
-                        <img src="https://flagcdn.com/48x36/za.png" />
-                        <select class="select-box" asp-for="@Model.Destination" asp-items="@Model.CurrencyNames"></select>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="amount" style="margin-top:20px">
-                <label asp-for="@Model.Amount"></label>
-                <input asp-for="@Model.Amount" type="number" min="1" step="1" max="@int.MaxValue" value="1" />
-                <span asp-validation-for="@Model.Amount"></span>
-            </div>
-            <div class="exchange-rate"> 1 USD=118.16 NPR</div>
             <div>
-                <button class="button" type="submit">Get Exchange Rates </button>
+
+                <span> From </span>
+                <p> To</p>
+
+            </div>
+            <div>
+                <img id="url" src="https://flagcdn.com/48x36/ad.png" />
+                <select id="SRC" asp-for="@Model.Source" asp-items="@Model.CurrencyNames"></select>
+                <img id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
+                <select id="DEST" asp-for="@Model.Destination" asp-items="@Model.CurrencyNames"></select>
+
+            </div>
+
+
+
+            <div>
+                <center>
+                    <label asp-for="@Model.Amount"></label>
+                    <input asp-for="@Model.Amount" type="number" min="1" step="1" max="@int.MaxValue" value="1" />
+                    <span asp-validation-for="@Model.Amount"></span>
+                </center>
+            </div>
+            <div>
+                <center>
+                    <button type="submit">Get Exchange Rates </button>
+                </center>
             </div>
         </form>
     </div>
+</div>
+<script>
+    console.log("ajax");
+    let btn = document.getElementById('SRC');
+    let url = document.getElementById('url');
+    
+    btn.addEventListener('click', buttonclickhandler)
+    function buttonclickhandler() {
+        console.log("clicked");
+        let Src = url.getAttribute('src');
+        let Value = url.getAttribute('value');
+        let str = btn.value.substring(4, 6).toLowerCase();
+        let image = "https://flagcdn.com/48x36/str.png";
+        const link = new XMLHttpRequest();
+        
+
+        link.open("GET", image.substring(0, 26) + str + image.substring(29, 33), true);
+        
+       
+        link.onprogress = function () {
+            console.log('logged');
+        }
+        link.onload = function ()
+        {
+                 url.setAttribute("src", image.substring(0, 26) + str + image.substring(29, 33));
+            console.log(image.substring(0, 26) + str + image.substring(29, 33));
+            
+        }
+        link.send();
+    }
+
+
+    let btn1 = document.getElementById('DEST');
+    let url1 = document.getElementById('url1');
+
+    btn1.addEventListener('click', buttonclickhandlerDest)
+    function buttonclickhandlerDest() {
+        console.log("clicked");
+        let Src = url1.getAttribute('src');
+        let Value = url1.getAttribute('value');
+        let str = btn1.value.substring(4, 6).toLowerCase();
+        let image = "https://flagcdn.com/48x36/str.png";
+        const link = new XMLHttpRequest();
+
+
+        link.open("GET", image.substring(0, 26) + str + image.substring(29, 33), true);
+
+
+        link.onprogress = function () {
+            console.log('logged');
+        }
+        link.onload = function () {
+            url1.setAttribute("src", image.substring(0, 26) + str + image.substring(29, 33));
+            console.log(image.substring(0, 26) + str + image.substring(29, 33));
+
+        }
+        link.send();
+    }
+  
+   </script>

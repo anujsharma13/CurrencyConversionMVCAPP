@@ -1,7 +1,11 @@
+using CurrencyConversionMVCAPP.Controllers;
 using CurrencyConversionMVCAPP.Models;
+using CurrencyConversionMVCAPP.Models.Interfaces;
 using CurrencyConversionMVCAPP.Repository;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -14,11 +18,48 @@ namespace CurrencyTest
     [TestClass]
     public class CurrencyTest
     {
+        private readonly CurrencyController controller;
+        private readonly Mock<IGetCountryCodes> getCountry;
+        private readonly Mock<IGetNames> getNames;
+        private readonly Mock<IJsonToList> jsonToList;
+        private readonly Mock<ICopyJsonData> copyJsonData;
+        private readonly Mock<apicall> apicall;
+        public CurrencyTest()
+        {
+            getCountry = new Mock<IGetCountryCodes>();
+            getNames = new Mock<IGetNames>();
+            jsonToList = new Mock<IJsonToList>();
+            copyJsonData = new Mock<ICopyJsonData>();
+            apicall = new Mock<apicall>();
+            controller = new CurrencyController(getCountry.Object, getNames.Object, jsonToList.Object, copyJsonData.Object, apicall.Object); ;
+        }
+        [TestMethod]
+        public void Index_GetViewModel()
+        {
+            var result = controller.Index() as ViewResult;
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.ViewName,ignoreCase:true);
+        }
+        [TestMethod]
+        public async void Index_ModelStateIsInvalid()
+        {
+            controller.ModelState.AddModelError("Test", "Test");
+            var result = await controller.Index(Mock.Of<Currency>()) as ViewResult;
+            Assert.AreEqual("Index", result.ViewName, ignoreCase: true );
+        }
+        [TestMethod]
+        public void ApiCall()
+        {
+            double currency = 1.5;
+            apicall.Setup(x => x.apidata("usd", "inr")).ReturnsAsync(currency);
+            var result =  controller.Index();
+            Assert.AreEqual(result, currency);
+        }
         [TestMethod]
         public void Test_JsonToString()
         {
-          
-           string actual=CopyJsonData.Convert();
+
+            string actual = copyJsonData.Object.Convert();
             Assert.IsNotNull(actual);
         }
 
@@ -26,9 +67,9 @@ namespace CurrencyTest
         [TestMethod]
         public void Test_GetNames()
         {
-            string actual = CopyJsonData.Convert();
-            var countries = JsonConvert.DeserializeObject<Countries>(actual);
-            var list=GetNames.get(countries);
+            string json = copyJsonData.Object.Convert();
+            var Deserializeobj = jsonToList.Object.Convert(json);
+            var list=getNames.Object.get(Deserializeobj);
             Assert.IsNotNull(list);
         }
         [TestMethod]
@@ -36,9 +77,9 @@ namespace CurrencyTest
         {
             string source = "";
             string destination = "";
-            string data = CopyJsonData.Convert();
-            var countries = JsonConvert.DeserializeObject<Countries>(data);
-            var list = countries.countries.Select(x => x.currencyCode).ToList();
+            string json = copyJsonData.Object.Convert();
+            var Deserializeobj = jsonToList.Object.Convert(json);
+            var list=getNames.Object.get(Deserializeobj);
             Random r = new Random();
             int sourcenumber = r.Next(0, 250); //for ints
             int destinationnumber = r.Next(0, 250);

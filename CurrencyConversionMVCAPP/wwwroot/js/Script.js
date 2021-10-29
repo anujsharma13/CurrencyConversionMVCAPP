@@ -1,6 +1,7 @@
-﻿const dropList = document.querySelectorAll(".drop-list select")
-for (let i = 0; i < dropList.Length; i++) {
-    for (currencycode in Country - List) {
-        console.log(currencycode);
-    }
+﻿function greet(s) {
+    console.log(s);
 }
+let name1 = "anuj";
+let name2 = "sharma";
+greet(name1);
+greet(name2);

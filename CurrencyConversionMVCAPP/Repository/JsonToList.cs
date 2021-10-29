@@ -1,16 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using CurrencyConversionMVCAPP.Models;
+using CurrencyConversionMVCAPP.Models.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 
-namespace CurrencyConversionMVCAPP.Models
+
+namespace CurrencyConversionMVCAPP.Repository
 {
-    public  class JsonToList
+    public  class JsonToList:IJsonToList
     {
-        public static Countries Convert(string json)
+        public Countries Convert(string json)
         {
             var countries = JsonConvert.DeserializeObject<Countries>(json);
             

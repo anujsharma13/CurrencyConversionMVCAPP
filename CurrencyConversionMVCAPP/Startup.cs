@@ -1,4 +1,7 @@
+
+using CurrencyConversionMVCAPP.Models;
 using CurrencyConversionMVCAPP.Models.Interfaces;
+using CurrencyConversionMVCAPP.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +28,11 @@ namespace CurrencyConversionMVCAPP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IJsonToList, JsonToList>();
+            services.AddScoped<ICopyJsonData, CopyJsonData>();
+            services.AddScoped<IGetCountryCodes, GetCountryCodes>();
+            services.AddScoped<IGetNames, GetNames>();
+
             services.AddRefitClient<apicall>().ConfigureHttpClient(c =>
             {
                 c.BaseAddress = new Uri(@"https://currency-exchange.p.rapidapi.com");
