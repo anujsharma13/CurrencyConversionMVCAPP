@@ -48,12 +48,12 @@ namespace CurrencyTest
             Assert.AreEqual("Index", result.ViewName, ignoreCase: true );
         }
         [TestMethod]
-        public void ApiCall()
+        public async Task ApiCall()
         {
-            double currency = 1.5;
-            apicall.Setup(x => x.apidata("usd", "inr")).ReturnsAsync(currency);
-            var result =  controller.Index();
-            Assert.AreEqual(result, currency);
+            double currency = 75;
+            apicall.Setup(x => x.apidata("inr", "usd")).ReturnsAsync(currency);
+            //var result =  await controller.Helper("inr", "usd");
+      //      Assert.AreEqual(result, currency);
         }
         [TestMethod]
         public void Test_JsonToString()
@@ -71,25 +71,6 @@ namespace CurrencyTest
             var Deserializeobj = jsonToList.Object.Convert(json);
             var list=getNames.Object.get(Deserializeobj);
             Assert.IsNotNull(list);
-        }
-        [TestMethod]
-        public void Test_ApiHelper()
-        {
-            string source = "";
-            string destination = "";
-            string json = copyJsonData.Object.Convert();
-            var Deserializeobj = jsonToList.Object.Convert(json);
-            var list=getNames.Object.get(Deserializeobj);
-            Random r = new Random();
-            int sourcenumber = r.Next(0, 250); //for ints
-            int destinationnumber = r.Next(0, 250);
-            source = "INR";
-            destination = list[destinationnumber];
-            ApiHelper apiHelper = new ApiHelper();
-            Task<double> actual = apiHelper.Helper(source, destination);
-
-            var result = actual.Result > 0 ? 1 : 0;
-            Assert.AreEqual(result, 1);
         }
     }
 }

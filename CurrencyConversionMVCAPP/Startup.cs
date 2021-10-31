@@ -37,7 +37,6 @@ namespace CurrencyConversionMVCAPP
             {
                 c.BaseAddress = new Uri(@"https://currency-exchange.p.rapidapi.com");
                 c.DefaultRequestHeaders.Add("x-rapidapi-key", "64892e83d5msh2c4dfea8d121897p1f23a7jsnafd1a9f55ca0");
-                c.Timeout = TimeSpan.FromSeconds(10);
             });
             services.AddControllers();
         }

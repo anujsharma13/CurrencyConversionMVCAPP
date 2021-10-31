@@ -10,6 +10,7 @@ namespace CurrencyConversionMVCAPP.ViewModels
     {
         public Currency currency { get; set; }
         public double Result { get; set; }
+        public double RevResult { get; set; }
         public string ImgSrc { get; set; }
         public string ImgDest { get; set; }
     }

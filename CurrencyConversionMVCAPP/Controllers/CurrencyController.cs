@@ -3,6 +3,7 @@ using CurrencyConversionMVCAPP.Models.Interfaces;
 using CurrencyConversionMVCAPP.Repository;
 using CurrencyConversionMVCAPP.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Refit;
 using System;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace CurrencyConversionMVCAPP.Controllers
 {
     public class CurrencyController : Controller
     {
-        private IGetCountryCodes getCountry;
+        private readonly IGetCountryCodes getCountryCodes;
         private readonly IGetNames getNames;
         private readonly IJsonToList jsonToList;
         private readonly ICopyJsonData copyJsonData;
@@ -18,7 +19,7 @@ namespace CurrencyConversionMVCAPP.Controllers
 
         public CurrencyController(IGetCountryCodes getCountryCodes,IGetNames getNames,IJsonToList jsonToList, ICopyJsonData copyJsonData,apicall apicall)
         {
-            this.getCountry = getCountryCodes;
+            this.getCountryCodes = getCountryCodes;
             this.getNames = getNames;
             this.jsonToList = jsonToList;
             this.copyJsonData = copyJsonData;
@@ -36,25 +37,27 @@ namespace CurrencyConversionMVCAPP.Controllers
                 Destination="",
                 CurrencyNames=list
             };
-            return View(currency);
-         
+            return View("Index",currency);
         }
         [HttpPost]
         public async Task<IActionResult> Index(Currency _currency)
         {
-            string json = copyJsonData.Convert();
-            var Deserializeobj = jsonToList.Convert(json);
-            var list = getNames.get(Deserializeobj);
-            double result;
+            //string json = copyJsonData.Convert();
+            //var Deserializeobj = jsonToList.Convert(json);
+            //var list = getNames.get(Deserializeobj);
+            double result,revresult;
             if (!ModelState.IsValid)
             {
                 return View();
             }
             try
             {
-                string source = _currency.Source.Substring(0, 3);
-                string Destination = _currency.Destination.Substring(0, 3);
-                result = await Helper(_currency.Source, _currency.Destination);
+                string source = _currency.Source.Substring(0, 3).ToUpper();
+                string Destination = _currency.Destination.Substring(0, 3).ToUpper();
+                result = await apicall.apidata(source, Destination);
+                revresult = await apicall.apidata(Destination, source);
+                result = Math.Round(result, 2);
+                revresult = Math.Round(revresult, 2);
             }
             catch(Exception e)
             {
@@ -62,33 +65,19 @@ namespace CurrencyConversionMVCAPP.Controllers
             }
             string CountryCodeDummySource = _currency.Source.Substring(4, 2).ToLower() ;
             string CountryCodeDummyDestination = _currency.Destination.Substring(4, 2).ToLower();
-            //string CountryCodeSource = getCountry.Convert(Deserializeobj, CountryCodeDummySource);
-            //string CountryCodeDestination = getCountry.Convert(Deserializeobj, CountryCodeDummyDestination);
+            
             String SrcUrl = FlagUrl.GetUrl(CountryCodeDummySource);
             String DestUrl = FlagUrl.GetUrl(CountryCodeDummyDestination);
 
             CurrencyResultViewModel model = new CurrencyResultViewModel()
             {
                 currency = _currency,
-                Result =result*_currency.Amount,
-                ImgSrc=SrcUrl,
-                ImgDest=DestUrl
+                Result = result * _currency.Amount,
+                ImgSrc = SrcUrl,
+                ImgDest = DestUrl,
+                RevResult = revresult
             };
             return View("Result", model);
-        }
-
-        public async Task<double> Helper(string source, string destination)
-        {
-            double result;
-            try
-            {
-              result=await apicall.apidata(source, destination);
-            }
-            catch(Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-            return result;
         }
     }
 }

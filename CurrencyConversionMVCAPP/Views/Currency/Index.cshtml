@@ -1,138 +1,107 @@
-﻿@*@model CurrencyConversionMVCAPP.Models.Currency
+﻿@model CurrencyConversionMVCAPP.Models.Currency
+   
+    <div class="start" id="top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+        </nav>
+        <div>
+            <h1 style="font-size:15px;font"> Currency Converter</h1>
+        </div>
+        <div>
+            <h1 style="font-size:15px">Lets convert</h1>
+        </div>
         <div class="wrapper">
-
 
             <form asp-action="Index" asp-controller="Currency" method="post">
 
 
-                <div class="drop-list">
-
-                        <p> From </p>
-                        <p> To</p>
-
-                    </div>
-                    <div class="drop-list">
-                        <img class="icon" src="https://flagcdn.com/48x36/za.png" />
-                        <select class="select-box" asp-for="@Model.Source" asp-items="@Model.CurrencyNames"></select>
-                        <img class="icon" src="https://flagcdn.com/48x36/za.png" />
-                        <select class="select-box" asp-for="@Model.Destination" asp-items="@Model.CurrencyNames"></select>
-
-                        </div>
-
-                <div class="drop-list" >
-                    <strong>
-
-                    </strong>
-
-                </div>
-
-                <div  style="margin-top:20px; padding-right:70px">
-                    <center>
+                <div style="float:left">
+                    <div style="font-size:18px;text-shadow:1px 1px black">
                         <label asp-for="@Model.Amount"></label>
-                        <input asp-for="@Model.Amount" type="number" min="1" step="1" max="@int.MaxValue" value="1" />
-                        <span asp-validation-for="@Model.Amount"></span>
-                    </center>
+                    </div>
+                    <div style="margin-top:15px;height:40px;">
+                        <input style="font-size:22px;width:300px " asp-for="@Model.Amount" type="number" min="1" step="1" max="@int.MaxValue" value="1" />
+                    </div>
                 </div>
-                <div ><center>
-        <button class="button" type="submit" style="margin-top:30px;">Get Exchange Rates </button>
-    </center>
+                <div style="float:left; margin-left:13px;">
+                    <div class="form-label" style="text-shadow:1px 1px black;font-size:18px">
+                        <span style="margin-left:50px;"> From </span>
+                    </div>
+                    <div style="margin-left:40px;">
+                        <img id="url" class="img-thumbnail" src="https://flagcdn.com/48x36/ad.png" />
+                        <select style="width:300px" class="btn btn-light dropdown-toggle border-primary" id="SRC" asp-for="@Model.Source" asp-items="@Model.CurrencyNames"></select>
+                    </div>
+                </div>
+                <div style="float:left;margin-left:20px">
+                    <div class="form-label" style="text-shadow:1px 1px black; font-size:18px">
+                        <span style="margin-left:40px;"> To</span>
+                    </div>
+                    <div style="margin-left:40px">
+                        <img class="img-thumbnail" id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
+                        <select class="btn btn-light dropdown-toggle border-primary" style="width:300px" id="DEST" asp-for="@Model.Destination" asp-items="@Model.CurrencyNames"></select>
+                    </div>
+                </div>
+
+                <div id="bottom" style="margin-left:570px;">
+
+                    <div><button id="butn" class="btn btn-primary" type="submit">Get Exchange Rates </button></div>
                 </div>
             </form>
-        </div>*@
-@model CurrencyConversionMVCAPP.Models.Currency
-<div>
-
-    <div class="wrapper">
-        <form asp-action="Index" asp-controller="Currency" method="post">
-
-
-            <div>
-
-                <span> From </span>
-                <p> To</p>
-
-            </div>
-            <div>
-                <img id="url" src="https://flagcdn.com/48x36/ad.png" />
-                <select id="SRC" asp-for="@Model.Source" asp-items="@Model.CurrencyNames"></select>
-                <img id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
-                <select id="DEST" asp-for="@Model.Destination" asp-items="@Model.CurrencyNames"></select>
-
-            </div>
-
-
-
-            <div>
-                <center>
-                    <label asp-for="@Model.Amount"></label>
-                    <input asp-for="@Model.Amount" type="number" min="1" step="1" max="@int.MaxValue" value="1" />
-                    <span asp-validation-for="@Model.Amount"></span>
-                </center>
-            </div>
-            <div>
-                <center>
-                    <button type="submit">Get Exchange Rates </button>
-                </center>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-<script>
-    console.log("ajax");
-    let btn = document.getElementById('SRC');
-    let url = document.getElementById('url');
-    
-    btn.addEventListener('click', buttonclickhandler)
-    function buttonclickhandler() {
-        console.log("clicked");
-        let Src = url.getAttribute('src');
-        let Value = url.getAttribute('value');
-        let str = btn.value.substring(4, 6).toLowerCase();
-        let image = "https://flagcdn.com/48x36/str.png";
-        const link = new XMLHttpRequest();
-        
+    </div>
+    <script>
+        console.log("ajax");
+        let btn = document.getElementById('SRC');
+        let url = document.getElementById('url');
 
-        link.open("GET", image.substring(0, 26) + str + image.substring(29, 33), true);
-        
-       
-        link.onprogress = function () {
-            console.log('logged');
-        }
-        link.onload = function ()
-        {
-                 url.setAttribute("src", image.substring(0, 26) + str + image.substring(29, 33));
+        btn.addEventListener('click', buttonclickhandler)
+        function buttonclickhandler() {
+            console.log("clicked");
+            let Src = url.getAttribute('src');
+            let Value = url.getAttribute('value');
+            let str = btn.value.substring(4, 6).toLowerCase();
+            let image = "https://flagcdn.com/48x36/str.png";
+            url.setAttribute("src", image.substring(0, 26) + str + image.substring(29, 33));
             console.log(image.substring(0, 26) + str + image.substring(29, 33));
-            
         }
-        link.send();
-    }
 
 
-    let btn1 = document.getElementById('DEST');
-    let url1 = document.getElementById('url1');
+        let btn1 = document.getElementById('DEST');
+        let url1 = document.getElementById('url1');
 
-    btn1.addEventListener('click', buttonclickhandlerDest)
-    function buttonclickhandlerDest() {
-        console.log("clicked");
-        let Src = url1.getAttribute('src');
-        let Value = url1.getAttribute('value');
-        let str = btn1.value.substring(4, 6).toLowerCase();
-        let image = "https://flagcdn.com/48x36/str.png";
-        const link = new XMLHttpRequest();
+        btn1.addEventListener('click', buttonclickhandlerDest)
+        function buttonclickhandlerDest() {
+            console.log("clicked");
+            let Src = url1.getAttribute('src');
+            let Value = url1.getAttribute('value');
+            let str = btn1.value.substring(4, 6).toLowerCase();
+            let image = "https://flagcdn.com/48x36/str.png";
 
-
-        link.open("GET", image.substring(0, 26) + str + image.substring(29, 33), true);
-
-
-        link.onprogress = function () {
-            console.log('logged');
-        }
-        link.onload = function () {
             url1.setAttribute("src", image.substring(0, 26) + str + image.substring(29, 33));
             console.log(image.substring(0, 26) + str + image.substring(29, 33));
+            let result;
+            fetch("https://www.alphavantage.co/query?function=FX_MONTHLY&from_symbol=EUR&to_symbol=USD&apikey=9JO5LJWEMAA43SRO").then((result) => {
+                return result.json();
+            }).then((newresult) => {
+                console.log(newresult);
+            }).catch((error) => {
+                console.log(error);
+            });
 
         }
-        link.send();
-    }
-  
-   </script>
+
+    </script>
