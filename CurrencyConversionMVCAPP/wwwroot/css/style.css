@@ -11,9 +11,8 @@
     border-radius: 9px;
     height: 300px;
     background-color:white;
-    margin-top: 140px;
-    margin-bottom:200px;
-    margin-left:85px;
+    margin-top:60px;
+   
     box-shadow: 7px 7px 20px rgb(128 128 128);
 }
 #bottom {
@@ -27,7 +26,7 @@
 #top {
     top: 0;
    /*background-color:#000080;*/
-   background-image:url('../images/blue1.jpg');
+   background-image:url('../images/img8.jpg');
     background-repeat:no-repeat;
     background-size: 100% 100%;
 }

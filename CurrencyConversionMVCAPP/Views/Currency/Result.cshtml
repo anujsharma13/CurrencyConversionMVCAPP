@@ -2,44 +2,63 @@
 
 
 <div class="start" id="top">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-        </ul>
-    </nav>
-    
-    <div class="wrapper">
-        <img src=@Model.ImgSrc class="img-thumbnail" alt="Flag" style="height:48px; width:60px" />
+    <center>
+        <nav class="navbar navbar-expand-lg navbar-light bg-opacity-100">
+            <a class="navbar-brand" href="#" style="max-width: 30%;margin-top:2px">
+                <img src="~/images/Logo-removebg.png" class="img-fluid">
+            </a>
+            <ul class="navbar-nav">
+                <li>
 
-        <div style="font-size:4px;">
-            <h1>@Model.currency.Amount @Model.currency.Source.Substring(0, 3) = </h1>
+                </li>
+                <li class="nav-item active">
+                    <a style="color: white; margin-left: 20px; font-family: inherit" class="nav-link" asp-action="Index" asp-controller="Currency">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a style="color: white; margin-left: 20px;font-family:inherit" class="nav-link" asp-action="Index" asp-controller="Currency">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a style="color: white; margin-left: 20px; font-family: inherit " class="nav-link" asp-action="Index" asp-controller="Currency">Pricing</a>
+                </li>
+            </ul>
+        </nav>
+    </center>
+    <center>
+        <h1 style="font-size: 35px; margin-top: 10px; color: white; font-family: inherit"> Currency Converter</h1>
+
+        <h1 style="font-size: 16px; color: white; font-family: inherit">Result of live currency exhange rates</h1>
+    </center>
+    <center>
+        <div class="wrapper">
+
+            <div>
+                <div>
+                    <img src=@Model.ImgSrc class="img-thumbnail" alt="Flag" style="height:48px; width:60px;margin-left:20px" />
+                    <span style="font-size: 20px; ">@Model.SourceCurrencyData.countryName @Model.SourceCurrencyData.currencyCode </span>
+                    <img src="~/images/Convert-removebg.png" style="height:40px;width:40px" />
+                    <span style="font-size: 20px;">@Model.DestinationCurrencyData.countryName @Model.DestinationCurrencyData.currencyCode </span>
+                    <img src=@Model.ImgDest class="img-thumbnail" alt="Flag" style="height: 48px; width: 60px;" />
+
+                </div>
+                <img src=@Model.ImgSrc class="img-thumbnail" alt="Flag" style="height:30px; width:35px;margin-left:20px" />
+                <span style="font-size:20px">@Model.currency.Amount @Model.currency.Source.Substring(0, 3) = </span>
+                <span style="font-size:20px"> @Model.Result @Model.currency.Destination.Substring(0, 3)</span>
+                <img src=@Model.ImgDest class="img-thumbnail" alt="Flag" style="height: 30px; width: 35px;" />
+                <p></p>
+                <img src=@Model.ImgDest class="img-thumbnail" alt="Flag" style="height: 30px; width: 35px; margin-left: 20px" />
+                <span style="font-size: 20px;">@Model.currency.Amount @Model.currency.Destination.Substring(0, 3) =</span>
+                <span style=" font-size: 20px;">@Model.RevResult @Model.currency.Source.Substring(0, 3)</span>
+                <img src=@Model.ImgSrc class="img-thumbnail" alt="Flag" style="height: 30px; width: 35px;" />
+            </div>
         </div>
-        <div style="margin-top:30px;">
-            <span style="font-size:70px"> @Model.Result @Model.currency.Destination.Substring(0, 3)</span>
-
-            <img src=@Model.ImgDest class="img-thumbnail" alt="Flag" style="height:48px; width:60px; margin-bottom:40px;" />
-        </div>
-        <center>
-            <p style="margin-top:150px; justify-content:center;align-content:center">@Model.currency.Amount @Model.currency.Destination.Substring(0, 3) =</p>
-        </center>
-        <p style="margin-top: 150px; justify-content: center; align-content: center;margin-right:320px">@Model.RevResult @Model.currency.Source.Substring(0, 3)</p>
-
-    </div>
-
+    </center>
 
 
 </div>
-            <div id="bottom">
-              
-            </div>
+<div id="bottom">
+
+    <div>
+        <p style="margin-left:150px;margin-top:20px;margin-left:950px">1 @Model.currency.Source = @Model.oneResult @Model.currency.Destination</p>
+        <span style="margin-top:10px;margin-left:150px;margin-left:950px">1 @Model.currency.Destination = @Model.oneRevResult @Model.currency.Source</span>
+    </div>
+</div>

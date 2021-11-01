@@ -9,11 +9,11 @@ namespace CurrencyConversionMVCAPP.Repository
 {
     public class GetCountryCodes:IGetCountryCodes
     {
-        public string Convert(Countries Deserializeobj,string Countrycode)
+        public CurrencyData Convert(Countries Deserializeobj,string Currencycode)
         {
-            var currencydata = Deserializeobj.countries.FirstOrDefault(x => x.countryCode == Countrycode);
-            var CountryCode = currencydata.countryCode;
-            return CountryCode;
+            var currencydata = Deserializeobj.countries.FirstOrDefault(x => x.currencyCode == Currencycode);
+           
+            return currencydata;
         }
 
     }

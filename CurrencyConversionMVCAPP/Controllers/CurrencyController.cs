@@ -3,6 +3,7 @@ using CurrencyConversionMVCAPP.Models.Interfaces;
 using CurrencyConversionMVCAPP.Repository;
 using CurrencyConversionMVCAPP.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Refit;
 using System;
 using System.Threading.Tasks;
@@ -39,35 +40,38 @@ namespace CurrencyConversionMVCAPP.Controllers
             };
             return View("Index",currency);
         }
-        [HttpPost]
-        public async Task<IActionResult> Index(Currency _currency)
+        [HttpGet]
+        public async Task<JsonResult> Result(Currency _currency)
         {
-            //string json = copyJsonData.Convert();
-            //var Deserializeobj = jsonToList.Convert(json);
-            //var list = getNames.get(Deserializeobj);
-            double result,revresult;
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
+            _currency.Source = _currency.Source.ToUpper();
+            _currency.Destination = _currency.Destination.ToUpper();
+            string json = copyJsonData.Convert();
+            var Deserializeobj = jsonToList.Convert(json);
+            var list = getNames.get(Deserializeobj);
+            double result=1,revresult=1;
+            string source="", Destination="";
+            
             try
             {
-                string source = _currency.Source.Substring(0, 3).ToUpper();
-                string Destination = _currency.Destination.Substring(0, 3).ToUpper();
+                 source = _currency.Source.Substring(0, 3).ToUpper();
+                 Destination = _currency.Destination.Substring(0, 3).ToUpper();
                 result = await apicall.apidata(source, Destination);
                 revresult = await apicall.apidata(Destination, source);
-                result = Math.Round(result, 2);
-                revresult = Math.Round(revresult, 2);
             }
             catch(Exception e)
             {
-                return View("Error = ", e.Message);
+                Console.WriteLine(e.Message);
             }
-            string CountryCodeDummySource = _currency.Source.Substring(4, 2).ToLower() ;
-            string CountryCodeDummyDestination = _currency.Destination.Substring(4, 2).ToLower();
-            
-            String SrcUrl = FlagUrl.GetUrl(CountryCodeDummySource);
-            String DestUrl = FlagUrl.GetUrl(CountryCodeDummyDestination);
+            //string CountryCodeDummySource = _currency.Source.Substring(4, 2).ToLower() ;
+            //string CountryCodeDummyDestination = _currency.Destination.Substring(4, 2).ToLower();
+            CurrencyData SourceCurr = getCountryCodes.Convert(Deserializeobj, source.ToUpper());
+            CurrencyData DestCurr = getCountryCodes.Convert(Deserializeobj, Destination.ToUpper());
+
+            string SrcUrl = FlagUrl.GetUrl(SourceCurr.countryCode.ToLower());
+            string DestUrl = FlagUrl.GetUrl(DestCurr.countryCode.ToLower());
+
+            //string countrysource = GetCountryNames.Convert(Deserializeobj, CountryCodeDummySource.ToUpper());
+            //string countryDest = GetCountryNames.Convert(Deserializeobj, CountryCodeDummyDestination.ToUpper());
 
             CurrencyResultViewModel model = new CurrencyResultViewModel()
             {
@@ -75,9 +79,14 @@ namespace CurrencyConversionMVCAPP.Controllers
                 Result = result * _currency.Amount,
                 ImgSrc = SrcUrl,
                 ImgDest = DestUrl,
-                RevResult = revresult
+                RevResult = revresult*_currency.Amount,
+                oneResult=result,
+                oneRevResult=revresult,
+                SourceCurrencyData = SourceCurr,
+                DestinationCurrencyData=DestCurr
             };
-            return View("Result", model);
+            var jsonModel = JsonConvert.SerializeObject(model);
+            return Json(jsonModel);
         }
     }
 }

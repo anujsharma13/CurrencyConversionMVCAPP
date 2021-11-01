@@ -7,6 +7,6 @@ namespace CurrencyConversionMVCAPP.Models.Interfaces
 {
    public interface IGetCountryCodes
     {
-        public string Convert(Countries Deserializeobj, string currencycode);
+        public CurrencyData Convert(Countries Deserializeobj, string currencycode);
     }
 }
