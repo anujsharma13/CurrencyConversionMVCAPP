@@ -40,6 +40,10 @@ namespace CurrencyConversionMVCAPP.Controllers
             };
             return View("Index",currency);
         }
+        public IActionResult Output()
+        {
+            return View("Result");
+        }
         [HttpGet]
         public async Task<JsonResult> Result(Currency _currency)
         {

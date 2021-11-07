@@ -1,64 +1,129 @@
-﻿@model CurrencyConversionMVCAPP.ViewModels.CurrencyResultViewModel
+﻿@*@model CurrencyConversionMVCAPP.ViewModels.CurrencyResultViewModel
 
 
-<div class="start" id="top">
-    <center>
-        <nav class="navbar navbar-expand-lg navbar-light bg-opacity-100">
-            <a class="navbar-brand" href="#" style="max-width: 30%;margin-top:2px">
-                <img src="~/images/Logo-removebg.png" class="img-fluid">
-            </a>
-            <ul class="navbar-nav">
-                <li>
+    <div class="start" id="top">
+        <center>
+            <nav class="navbar navbar-expand-lg navbar-light bg-opacity-100">
+                <a class="navbar-brand" href="#" style="max-width: 30%;margin-top:2px">
+                    <img src="~/images/Logo-removebg.png" class="img-fluid">
+                </a>
+                <ul class="navbar-nav">
+                    <li>
 
-                </li>
-                <li class="nav-item active">
-                    <a style="color: white; margin-left: 20px; font-family: inherit" class="nav-link" asp-action="Index" asp-controller="Currency">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a style="color: white; margin-left: 20px;font-family:inherit" class="nav-link" asp-action="Index" asp-controller="Currency">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a style="color: white; margin-left: 20px; font-family: inherit " class="nav-link" asp-action="Index" asp-controller="Currency">Pricing</a>
-                </li>
-            </ul>
-        </nav>
-    </center>
-    <center>
-        <h1 style="font-size: 35px; margin-top: 10px; color: white; font-family: inherit"> Currency Converter</h1>
+                    </li>
+                    <li class="nav-item active">
+                        <a style="color: white; margin-left: 20px; font-family: inherit" class="nav-link" asp-action="Index" asp-controller="Currency">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white; margin-left: 20px;font-family:inherit" class="nav-link" asp-action="Index" asp-controller="Currency">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white; margin-left: 20px; font-family: inherit " class="nav-link" asp-action="Index" asp-controller="Currency">Pricing</a>
+                    </li>
+                </ul>
+            </nav>
+        </center>
+        <center>
+            <h1 style="font-size: 35px; margin-top: 10px; color: white; font-family: inherit"> Currency Converter</h1>
 
-        <h1 style="font-size: 16px; color: white; font-family: inherit">Result of live currency exhange rates</h1>
-    </center>
-    <center>
-        <div class="wrapper">
+            <h1 style="font-size: 16px; color: white; font-family: inherit">Result of live currency exhange rates</h1>
+        </center>
+        <center>
+            <div class="wrapper">
 
-            <div>
                 <div>
-                    <img src=@Model.ImgSrc class="img-thumbnail" alt="Flag" style="height:48px; width:60px;margin-left:20px" />
-                    <span style="font-size: 20px; ">@Model.SourceCurrencyData.countryName @Model.SourceCurrencyData.currencyCode </span>
-                    <img src="~/images/Convert-removebg.png" style="height:40px;width:40px" />
-                    <span style="font-size: 20px;">@Model.DestinationCurrencyData.countryName @Model.DestinationCurrencyData.currencyCode </span>
-                    <img src=@Model.ImgDest class="img-thumbnail" alt="Flag" style="height: 48px; width: 60px;" />
+                    <div>
+                        <img src=@Model.ImgSrc class="img-thumbnail" alt="Flag" style="height:48px; width:60px;margin-left:20px" />
+                        <span style="font-size: 20px; ">@Model.SourceCurrencyData.countryName @Model.SourceCurrencyData.currencyCode </span>
+                        <img src="~/images/Convert-removebg.png" style="height:40px;width:40px" />
+                        <span style="font-size: 20px;">@Model.DestinationCurrencyData.countryName @Model.DestinationCurrencyData.currencyCode </span>
+                        <img src=@Model.ImgDest class="img-thumbnail" alt="Flag" style="height: 48px; width: 60px;" />
 
+                    </div>
+                    <img src=@Model.ImgSrc class="img-thumbnail" alt="Flag" style="height:30px; width:35px;margin-left:20px" />
+                    <span style="font-size:20px">@Model.currency.Amount @Model.currency.Source.Substring(0, 3) = </span>
+                    <span style="font-size:20px"> @Model.Result @Model.currency.Destination.Substring(0, 3)</span>
+                    <img src=@Model.ImgDest class="img-thumbnail" alt="Flag" style="height: 30px; width: 35px;" />
+                    <p></p>
+                    <img src=@Model.ImgDest class="img-thumbnail" alt="Flag" style="height: 30px; width: 35px; margin-left: 20px" />
+                    <span style="font-size: 20px;">@Model.currency.Amount @Model.currency.Destination.Substring(0, 3) =</span>
+                    <span style=" font-size: 20px;">@Model.RevResult @Model.currency.Source.Substring(0, 3)</span>
+                    <img src=@Model.ImgSrc class="img-thumbnail" alt="Flag" style="height: 30px; width: 35px;" />
                 </div>
-                <img src=@Model.ImgSrc class="img-thumbnail" alt="Flag" style="height:30px; width:35px;margin-left:20px" />
-                <span style="font-size:20px">@Model.currency.Amount @Model.currency.Source.Substring(0, 3) = </span>
-                <span style="font-size:20px"> @Model.Result @Model.currency.Destination.Substring(0, 3)</span>
-                <img src=@Model.ImgDest class="img-thumbnail" alt="Flag" style="height: 30px; width: 35px;" />
-                <p></p>
-                <img src=@Model.ImgDest class="img-thumbnail" alt="Flag" style="height: 30px; width: 35px; margin-left: 20px" />
-                <span style="font-size: 20px;">@Model.currency.Amount @Model.currency.Destination.Substring(0, 3) =</span>
-                <span style=" font-size: 20px;">@Model.RevResult @Model.currency.Source.Substring(0, 3)</span>
-                <img src=@Model.ImgSrc class="img-thumbnail" alt="Flag" style="height: 30px; width: 35px;" />
+            </div>
+        </center>
+
+
+    </div>
+    <div id="bottom">
+
+        <div>
+            <p style="margin-left:150px;margin-top:20px;margin-left:950px">1 @Model.currency.Source = @Model.oneResult @Model.currency.Destination</p>
+            <span style="margin-top:10px;margin-left:150px;margin-left:950px">1 @Model.currency.Destination = @Model.oneRevResult @Model.currency.Source</span>
+        </div>
+    </div>*@
+@model CurrencyConversionMVCAPP.Models.Currency
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Export HTML table data to excel using JavaScript</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mt-4 mb-4">Export HTML table data to excel using JavaScript</h2>
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col col-md-6">Sample Data</div>
+                    <div class="col col-md-6 text-right">
+                        <button type="button" id="export_button" class="btn btn-success btn-sm">Export</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="employee_data" class="table table-striped table-bordered">
+                    <tr>
+                        <th>Source</th>
+                        <th>Desination</th>
+                        <th>Result</th>
+                        <th>Designation</th>
+                        <th>Age</th>
+                    </tr>
+                   
+                    @foreach (var x in Model.CurrencyNames)
+                    {
+                     
+                    <tr>
+                        <td>'.$row["name"].'</td>
+                        <td>'.$row["address"].'</td>
+                        <td>'.$row["gender"].'</td>
+                    </tr>
+                    }
+                </table>
             </div>
         </div>
-    </center>
-
-
-</div>
-<div id="bottom">
-
-    <div>
-        <p style="margin-left:150px;margin-top:20px;margin-left:950px">1 @Model.currency.Source = @Model.oneResult @Model.currency.Destination</p>
-        <span style="margin-top:10px;margin-left:150px;margin-left:950px">1 @Model.currency.Destination = @Model.oneRevResult @Model.currency.Source</span>
     </div>
-</div>
+</body>
+</html>
+
+<script>
+    function html_table_to_excel(type) {
+        var data = document.getElementById('employee_data');
+
+        var file = XLSX.utils.table_to_book(data, { sheet: "sheet1" });
+
+        XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
+
+        XLSX.writeFile(file, 'file.' + type);
+    }
+
+    const export_button = document.getElementById('export_button');
+
+    export_button.addEventListener('click', () => {
+        html_table_to_excel('xlsx');
+    });
+</script>

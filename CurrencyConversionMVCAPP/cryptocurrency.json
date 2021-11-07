@@ -1,0 +1,12 @@
+{
+  "cryptocurrency": [
+    {
+      "CurrencyName": "Bitcoin",
+      "CurrencyCode": "BTC"
+    },
+    {
+      "CurrencyName": "Ethereum",
+      "CurrencyCode": "ETH"
+    }
+  ]
+}

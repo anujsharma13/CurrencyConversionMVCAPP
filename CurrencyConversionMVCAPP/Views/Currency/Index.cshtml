@@ -3,72 +3,84 @@
 <div class="start" id="top">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-opacity-100">
-        <a class="navbar-brand " href="#" style="max-width: 30%;margin-top:2px">
+        <a class="navbar-brand " href="#" style="max-width: 30%;margin-top:1%">
             <img src="~/images/Logo-removebg.png" class="img-fluid">
         </a>
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a style="color: white; margin-left: 20px; font-family: inherit" class="nav-link" asp-action="Index" asp-controller="Currency">Home</a>
+                <a style="color: white; margin-left: 2%; font-family: inherit" class="nav-link" asp-action="Index" asp-controller="Currency">Home</a>
             </li>
             <li class="nav-item">
-                <a style="color: white; margin-left: 20px;font-family:inherit" class="nav-link" asp-action="Index" asp-controller="Currency">Privacy</a>
+                <a style="color: white; margin-left: 2%;font-family:inherit" class="nav-link" asp-action="Index" asp-controller="Crypto">Privacy</a>
             </li>
             <li class="nav-item">
-                <a style="color: white; margin-left: 20px; font-family: inherit " class="nav-link" asp-action="Index" asp-controller="Currency">Features</a>
+                <a style="color: white; margin-left: 2%; font-family: inherit " class="nav-link" asp-action="Index" asp-controller="Currency">Features</a>
             </li>
         </ul>
     </nav>
-    
-    <center>
-        <h1 style="font-size: 35px; margin-top:10px; color: white; font-family: inherit"> Currency Converter</h1>
 
-        <h1 style="font-size: 16px; color: white; font-family: inherit">Check Live Currency Exhange Rates</h1>
+    <center>
+        <h1 style="font-size:180%; margin-top:0.3%; color: white; font-family: inherit"> Currency Converter</h1>
+
+        <h1 style="font-size:100%; color: white; font-family: inherit">Check Live Currency Exhange Rates</h1>
     </center>
     <center>
-        <div class="wrapper">
+        <div class="wrapper row">
 
             <form>
 
+                        <div style="float:left;margin-left:1%;width:200px"class="col-1">
+                            <div style="font-size:120%;text-shadow:1px 1px black">
+                                <label asp-for="@Model.Amount"></label>
+                            </div>
+                            <div style="margin-top:2%">
+                                <input id="amount" style="font-size:130%;width:140% " min="1" step="1" max="@double.MaxValue" value="1" />
+                            </div>
+                        </div>
+                  
+                        <div style="float:left;margin-left:10%;" class="col-2">
+                            <div style="text-shadow:1px 1px black; font-size:120%">
+                                <label> From</label>
+                            </div>
+                            <div class="row">
+                                <div style="margin-left:2%;margin-top:2%" class="col-1">
+                                    <img id="url" src="https://flagcdn.com/48x36/ad.png" alt="image" />
+                                </div>
+                                <div class="col-2" style="margin-left:14%;margin-top:2%">
+                                    <select style="text-align:left; font-size:80%;" class="btn btn-light  border-primary dropdown-menu-sm-right" id="SRC" asp-for="@Model.Source" asp-items="@Model.CurrencyNames"></select>
+                                </div>
+                            </div>
+                        </div>
+                  
+                        <div style="float:left;margin-left:20%;" class="col-3">
+                            <div style="text-shadow:1px 1px black; font-size:120%">
+                                <label> To</label>
+                            </div>
+                            
+                            <div class="row">
+                                <div style="margin-left:2%;margin-top:2%" class="col-1">
+                                    <img id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
+                                </div>
+                                <div class="col-2" style="margin-left:9%;margin-top:2%">
+                                    <select style="text-align:left;font-size:80%;" class="btn btn-light border-primary" id="DEST" asp-items="@Model.CurrencyNames" asp-for="@Model.Destination"></select>
+                                </div>
+                            </div>
+                           
+                        </div>
+                
+                <div id="bottom">
+                    <h1 id="Sourcename" style="float:left"> </h1>
+                    <h1 id="changeresult" style="float:left;margin-left:10%"> input text</h1>
+                    <h1 id="DestinationName"  style="float:left;"></h1>
+                    <h1 id="PrevOp"  style="float:left"> </h1>
+                    <div style="margin-top:1%">
+                    <button id="fetchbtn" type="button" class="btn btn-primary" style="float:right;margin-right:10%">Get Exchange Rates </button>
+                    </div>
+                </div>
 
-                <div style="float:left">
-                    <div style="font-size:18px;text-shadow:1px 1px black">
-                        <label asp-for="@Model.Amount"></label>
-                    </div>
-                    <div style="margin-top:10px;height:40px;">
-                        <input id="amount" style="font-size:22px;width:120% " type="number" min="1" step="1" max="@double.MaxValue" value="1" />
-                    </div>
-                </div>
-                <div style="float:left;margin-left:20px">
-                    <div class="form-label" style="text-shadow:1px 1px black; font-size:18px">
-                        <span style="margin-left:40px;"> From</span>
-                    </div>
-                    <div style="margin-left:40px">
-                        <img id="url" src="https://flagcdn.com/48x36/ad.png" alt="image" />
-                        <select style="width:300px;text-align:left;min-width:60px" class="btn btn-light  border-primary dropdown-menu-sm-right"  id="SRC" asp-for="@Model.Source" asp-items="@Model.CurrencyNames"></select>
-                    </div>
-                   
-                </div>
-                <div style="float:left;margin-left:20px">
-                    <div class="form-label" style="text-shadow:1px 1px black; font-size:18px">
-                        <span style="margin-left:40px;"> To</span>
-                    </div>
-                    <div style="margin-left:40px">
-                        <img id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
-                        <select class="btn btn-light  border-primary" style="width:300px;text-align:left" id="DEST" asp-items="@Model.CurrencyNames" asp-for="@Model.Destination"></select>
-                    </div>
-                </div>
 
-                <div id="bottom" >
-                    <h1 id="Sourcename"> </h1>
-                    <label id="changeresult" style="float:left;margin-left:10%"> input text</label>
-                    <h1 id="DestinationName"></h1>
-                    <div><button id="fetchbtn" type="button" class="btn btn-primary" style="float:right;margin-right:10%">Get Exchange Rates </button></div>
-                </div>
-               
-               
             </form>
         </div>
     </center>
 </div>
-   
 <script src="~/js/Script.js"></script>

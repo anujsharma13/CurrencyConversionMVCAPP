@@ -4,13 +4,17 @@ let url = document.getElementById('url');
 let btn1 = document.getElementById('DEST');
 let url1 = document.getElementById('url1');
 
-let Amt = document.getElementById('amount');
 
 let changeresult = document.getElementById('changeresult');
 let fetchbtn = document.getElementById('fetchbtn');
 
 let Sourcename = document.getElementById('Sourcename');
-let Destinationename = document.getElementById('Destinationname');
+let DestinationName = document.getElementById('DestinationName');
+
+let prevop = document.getElementById('PrevOp');
+
+let Amt = document.getElementById('amount');
+
 console.log("ajax");
 
 btn.addEventListener('click', buttonclickhandler)
@@ -25,6 +29,7 @@ function buttonclickhandler() {
 
 btn1.addEventListener('click', buttonclickhandlerDest)
 function buttonclickhandlerDest() {
+  
     console.log("clicked");
 
     let str = btn1.value.substring(4, 6).toLowerCase();
@@ -50,10 +55,42 @@ function buttonclickhandle() {
         console.log("-------------------------parsed----------------------------");
         console.log(parsed);
         let result = JSON.parse(parsed);
-        console.log("-------------" + result["Result"]);
-        changeresult.innerHTML = result["Result"];
+
         Sourcename.innerHTML = str.toUpperCase();
+        changeresult.innerHTML = result["Result"];
+        DestinationName.innerHTML = str1.toUpperCase();
+       
+       
+        let SourceVal = str.toUpperCase();
+        let ResultVal = result["Result"];
+        let DestVal = str1.toUpperCase();
+        let Now = new Date();
+        let obj = { SourceVal, DestVal, ResultVal, Now };
+       
+        console.log('---------------------------amont------------------------------------------------')
+        console.log('-------------------op=---------------------');
+        console.log(JSON.parse(localStorage.getItem(0)))
+        if (localStorage.length < 5) {
+
+            let c = localStorage.length;
+            console.log(c);
+            localStorage.setItem(c, JSON.stringify(obj));
+           
+        }
+        else {
+            localStorage.removeItem(0);
+            for (let i = 1; i < 5 ; i++)
+            {
+                let op = localStorage.getItem(i);
+                localStorage.removeItem(i);
+                let n = i;
+                localStorage.setItem(n - 1, op);
+            }
+            localStorage.setItem(4, JSON.stringify(obj));
+          
+        }
+       
     }
     xhr.send();
 }
-setInterval(buttonclickhandle, 30000);
+/*setInterval(buttonclickhandle, 60000);*/
