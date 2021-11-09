@@ -16,7 +16,7 @@ namespace CurrencyConversionMVCAPP.Models
         public string Source { get; set; }
         [Required]
         public string Destination { get; set; }
-        public IEnumerable<SelectListItem> CurrencyNames { get; set; }
-     
+        public IEnumerable<SelectListItem> CurrencyNames { get; set; }  
+        
     }
 }

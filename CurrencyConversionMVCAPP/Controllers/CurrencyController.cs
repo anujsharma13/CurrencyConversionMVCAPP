@@ -89,8 +89,14 @@ namespace CurrencyConversionMVCAPP.Controllers
                 SourceCurrencyData = SourceCurr,
                 DestinationCurrencyData=DestCurr
             };
+            CurrencyCache.Add(model);
             var jsonModel = JsonConvert.SerializeObject(model);
             return Json(jsonModel);
+        }
+        public IActionResult History()
+        {
+            var Historyqueue = CurrencyCache.currency;
+            return View(Historyqueue);
         }
     }
 }

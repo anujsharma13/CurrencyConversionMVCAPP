@@ -15,6 +15,7 @@ let prevop = document.getElementById('PrevOp');
 
 let Amt = document.getElementById('amount');
 
+let tab = document.getElementById('tab');
 console.log("ajax");
 
 btn.addEventListener('click', buttonclickhandler)
@@ -44,51 +45,57 @@ function buttonclickhandle() {
     console.log("clicked");
     let str = btn.value.substring(0, 3).toLowerCase();
     let str1 = btn1.value.substring(0, 3).toLowerCase();
-
+    let amount = Amt.value;
+    str += "=";
+    
+    tab.deleteRow(1);
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', "/Currency/Result?Source=" + str + "&Destination=" + str1, true);
+    xhr.open('GET', "/Currency/Result?Source=" + str + "&Destination=" + str1 + "&Amount=" + amount, true);
     xhr.onprogress = function () {
         console.log('progress');
     }
     xhr.onload = function () {
         let parsed = JSON.parse(this.responseText);
-        console.log("-------------------------parsed----------------------------");
-        console.log(parsed);
+        //console.log("-------------------------parsed----------------------------");
+        //console.log(parsed);
         let result = JSON.parse(parsed);
 
         Sourcename.innerHTML = str.toUpperCase();
         changeresult.innerHTML = result["Result"];
         DestinationName.innerHTML = str1.toUpperCase();
-       
-       
-        let SourceVal = str.toUpperCase();
-        let ResultVal = result["Result"];
-        let DestVal = str1.toUpperCase();
-        let Now = new Date();
-        let obj = { SourceVal, DestVal, ResultVal, Now };
-       
-        console.log('---------------------------amont------------------------------------------------')
-        console.log('-------------------op=---------------------');
-        console.log(JSON.parse(localStorage.getItem(0)))
-        if (localStorage.length < 5) {
 
-            let c = localStorage.length;
-            console.log(c);
-            localStorage.setItem(c, JSON.stringify(obj));
+        //let SourceVal = str.toUpperCase();
+        //let ResultVal = result["Result"];
+        //let DestVal = str1.toUpperCase();
+        //let Now = new Date();
+       /* let obj = { SourceVal, DestVal, ResultVal, Now };*/
+        
+        //console.log('---------------------------amont------------------------------------------------')
+        //console.log(amount);
+        //console.log('-------------------op=---------------------');
+        //console.log(JSON.parse(localStorage.getItem(0)));
+        //let output = JSON.parse(localStorage.getItem(0));
+        //console.log('----------------------------0---------------------------------------');
+        //console.log(output.SourceVal);
+        //if (localStorage.length < 5) {
+
+        //    let c = localStorage.length;
+        //    console.log(c);
+        //    localStorage.setItem(c, JSON.stringify(obj));
            
-        }
-        else {
-            localStorage.removeItem(0);
-            for (let i = 1; i < 5 ; i++)
-            {
-                let op = localStorage.getItem(i);
-                localStorage.removeItem(i);
-                let n = i;
-                localStorage.setItem(n - 1, op);
-            }
-            localStorage.setItem(4, JSON.stringify(obj));
+        //}
+        //else {
+        //    localStorage.removeItem(0);
+        //    for (let i = 1; i < 5 ; i++)
+        //    {
+        //        let op = localStorage.getItem(i);
+        //        localStorage.removeItem(i);
+        //        let n = i;
+        //        localStorage.setItem(n - 1, op);
+        //    }
+        //    localStorage.setItem(4, JSON.stringify(obj));
           
-        }
+        //}
        
     }
     xhr.send();

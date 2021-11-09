@@ -1,8 +1,12 @@
 ﻿#top {
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
     height: 60%;
+    top: 0;
+    background-image: url('../images/img8.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 .wrapper {
     width: 90%;
@@ -11,28 +15,118 @@
     border-radius: 9px;
     height: 300px;
     background-color:white;
-    margin-top:2%;
+    margin-top:3%;
     box-shadow: 7px 7px 20px rgb(128 128 128);
 }
 #bottom {
-    position: fixed;
+    position: absolute;
+    height: 40%;
     left: 0;
     right: 0;
-    height: 40%;
-
-}
-
-#top {
-    top: 0;
-   background-image:url('../images/img8.jpg');
-    background-repeat:no-repeat;
-    background-size: 100% 100%;
-}
-
-#bottom {
     bottom: 0;
 }
 #butn{
     margin-left:500px;
     margin-top:40px;
+}
+.navimg {
+    max-width: 30%;
+    margin-top: 1%;
+}
+.navitem {
+    color: #FFFFFF;
+    margin-left: 2%;
+    font-family: 'Times New Roman';
+}
+.heading {
+    font-size: 180%;
+    margin-top: 0.3%;
+    color: white;
+    font-family: inherit;
+    text-align:center;
+   
+}
+.subheading {
+    font-size: 100%;
+    text-align:center;
+    color: white;
+    font-family: inherit;
+}
+.amountdiv {
+    float: left;
+    margin-left: 1%;
+    width: 22.5%;
+}
+.amountlabel {
+    font-size: 120%;
+    text-shadow: 1px 1px black;
+}
+.amountinput {
+    margin-top: 2%;
+}
+.sourcediv {
+    float: left;
+    margin-left: 8%;
+}
+.sourcedivlabel {
+    text-shadow: 1px 1px black;
+    font-size: 120%;
+}
+.sourceimg {
+    margin-left: 2%;
+    margin-top: 2%;
+}
+.sourcedropdowndiv {
+    margin-left: 10%;
+    margin-top: 2.5%;
+}
+.sourcedropdown {
+    text-align: left;
+    font-size: 80%;
+    height: 100%;
+    width:320px;
+}
+.destdiv {
+    float: left;
+    margin-left: 18%;
+}
+.destdivlabel {
+    text-shadow: 1px 1px black;
+    font-size: 120%;
+}
+.destimg {
+    margin-left: 2%;
+    margin-top: 2%;
+}
+.destdropdowndiv {
+    margin-left: 10%;
+    margin-top: 2.5%;
+}
+.destdropdown {
+    text-align: left;
+    font-size: 80%;
+    height: 100%;
+    width:320px;
+}
+.column {
+    float: left;
+    width: 33.33%;
+}
+
+ Clear floats after the columns 
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.column {
+    float: left;
+}
+
+.left, .right {
+    width: 25%;
+}
+
+.middle {
+    width: 50%;
 }
