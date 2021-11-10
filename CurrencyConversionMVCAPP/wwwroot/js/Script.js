@@ -11,13 +11,60 @@ let fetchbtn = document.getElementById('fetchbtn');
 let Sourcename = document.getElementById('Sourcename');
 let DestinationName = document.getElementById('DestinationName');
 
-let prevop = document.getElementById('PrevOp');
 
 let Amt = document.getElementById('amount');
 
-let tab = document.getElementById('tab');
+let prevAmt = document.getElementById('prevamt');
+let prevsrc = document.getElementById('prevsrc');
+let prevdest = document.getElementById('prevdest');
+
+let prevAmtlabel = document.getElementById('prevamtlabel');
+let prevsrclabel = document.getElementById('prevsrclabel');
+let prevdestlabel = document.getElementById('prevdestlabel');
+
 console.log("ajax");
 
+
+function addRowHandlers() {
+    var table = document.getElementById("tab");
+    var rows = table.getElementsByTagName("tr");
+    var srcdata, destdata, Amtdata, Resultdata, Datedata;
+    for (i = 0; i < rows.length; i++) {
+        var currentRow = table.rows[i];
+        var createClickHandler = function (row) {
+            return function () {
+                var cell1 = row.getElementsByTagName("td")[0];
+                var cell2 = row.getElementsByTagName("td")[1];
+                var cell3 = row.getElementsByTagName("td")[2];
+                var cell4 = row.getElementsByTagName("td")[3];
+                var cell5 = row.getElementsByTagName("td")[4];
+                 srcdata = cell1.innerHTML;
+                 destdata = cell2.innerHTML;
+                 Amtdata = cell3.innerHTML;
+                 Resultdata = cell4.innerHTML;
+                Datedata = cell5.innerHTML;
+                console.log("id:" + srcdata + destdata + Amtdata + Resultdata + Datedata);
+
+                //prev data
+                prevAmt.innerHTML = Amtdata;
+                prevsrc.innerHTML = srcdata.toUpperCase();
+                prevdest.innerHTML = destdata.toUpperCase();
+
+                //prev history label
+                prevAmtlabel.innerHTML = "Prev Amount"
+                prevsrclabel.innerHTML = "Prev Source"
+                prevdestlabel.innerHTML = "Prev Destination"
+
+                //styling
+                prevAmt.style.border = "2px solid black";
+            };
+        };
+        currentRow.onclick = createClickHandler(currentRow);
+       
+
+    }
+  
+}
 btn.addEventListener('click', buttonclickhandler)
 function buttonclickhandler() {
     console.log("clicked");
@@ -46,9 +93,7 @@ function buttonclickhandle() {
     let str = btn.value.substring(0, 3).toLowerCase();
     let str1 = btn1.value.substring(0, 3).toLowerCase();
     let amount = Amt.value;
-    str += "=";
-    
-    tab.deleteRow(1);
+    //tab.deleteRow(1);
     const xhr = new XMLHttpRequest();
     xhr.open('GET', "/Currency/Result?Source=" + str + "&Destination=" + str1 + "&Amount=" + amount, true);
     xhr.onprogress = function () {
@@ -60,11 +105,56 @@ function buttonclickhandle() {
         //console.log(parsed);
         let result = JSON.parse(parsed);
 
-        Sourcename.innerHTML = str.toUpperCase();
-        changeresult.innerHTML = result["Result"];
-        DestinationName.innerHTML = str1.toUpperCase();
+        //Sourcename.innerHTML = str.toUpperCase();
+        //changeresult.innerHTML = result["Result"];
+        //DestinationName.innerHTML = str1.toUpperCase();
+        let table = document.querySelector('table');
+      
+        var rowCount = 0;
+        var rows = table.getElementsByTagName("tr")
+        for (var i = 0; i < rows.length; i++) {
+            if (rows[i].getElementsByTagName("td").length > 0) {
+                rowCount++;
+            }
+        }
+        if (rowCount >= 5) {
+            table.deleteRow(1);
+            var newrow = table.insertRow(5);
 
-        //let SourceVal = str.toUpperCase();
+            var cell1 = newrow.insertCell(0);
+            var cell2 = newrow.insertCell(1);
+            var cell3 = newrow.insertCell(2);
+            var cell4 = newrow.insertCell(3);
+            var cell5 = newrow.insertCell(4);
+            cell1.innerHTML = str.toUpperCase();
+            cell2.innerHTML = str1.toUpperCase();
+            cell3.innerHTML = amount;
+            cell4.innerHTML = amount * result['Result'];
+            let current = new Date();
+            let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
+            let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+            let dateTime = cDate + ' ' + cTime;
+            cell5.innerHTML = dateTime;
+        }
+        else {
+            var newrow = table.insertRow(rowCount+1);
+
+            var cell1 = newrow.insertCell(0);
+            var cell2 = newrow.insertCell(1);
+            var cell3 = newrow.insertCell(2);
+            var cell4 = newrow.insertCell(3);
+            var cell5 = newrow.insertCell(4);
+            cell1.innerHTML = str;
+            cell2.innerHTML = str1;
+            cell3.innerHTML = amount;
+            cell4.innerHTML = amount * result['Result'];
+            let current = new Date();
+            let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
+            let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+            let dateTime = cDate + ' ' + cTime;
+            cell5.innerHTML = dateTime;
+        }
+        ////let SourceVal = str.toUpperCase();
         //let ResultVal = result["Result"];
         //let DestVal = str1.toUpperCase();
         //let Now = new Date();

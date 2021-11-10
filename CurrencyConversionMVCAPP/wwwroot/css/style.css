@@ -1,4 +1,8 @@
-﻿#top {
+﻿*{
+    margin:0;
+    padding:0;
+}
+#top {
     position: absolute;
     left: 0;
     right: 0;
@@ -52,81 +56,7 @@
     color: white;
     font-family: inherit;
 }
-.amountdiv {
-    float: left;
-    margin-left: 1%;
-    width: 22.5%;
-}
-.amountlabel {
-    font-size: 120%;
-    text-shadow: 1px 1px black;
-}
-.amountinput {
-    margin-top: 2%;
-}
-.sourcediv {
-    float: left;
-    margin-left: 8%;
-}
-.sourcedivlabel {
-    text-shadow: 1px 1px black;
-    font-size: 120%;
-}
-.sourceimg {
-    margin-left: 2%;
-    margin-top: 2%;
-}
-.sourcedropdowndiv {
-    margin-left: 10%;
-    margin-top: 2.5%;
-}
-.sourcedropdown {
-    text-align: left;
-    font-size: 80%;
-    height: 100%;
-    width:320px;
-}
-.destdiv {
-    float: left;
-    margin-left: 18%;
-}
-.destdivlabel {
-    text-shadow: 1px 1px black;
-    font-size: 120%;
-}
-.destimg {
-    margin-left: 2%;
-    margin-top: 2%;
-}
-.destdropdowndiv {
-    margin-left: 10%;
-    margin-top: 2.5%;
-}
-.destdropdown {
-    text-align: left;
-    font-size: 80%;
-    height: 100%;
-    width:320px;
-}
-.column {
-    float: left;
-    width: 33.33%;
-}
-
- Clear floats after the columns 
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-.column {
-    float: left;
-}
-
-.left, .right {
-    width: 25%;
-}
-
-.middle {
-    width: 50%;
+tr:hover{
+    background-color:red;
+    color:white;
 }

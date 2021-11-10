@@ -1,141 +1,110 @@
 ﻿@model CurrencyConversionMVCAPP.Models.Currency
+   
+            <div class="start" id="top">
 
-<div class="start" id="top">
+                <nav class="navbar navbar-expand-lg navbar-light bg-opacity-100">
+                    <a class="navbar-brand navimg" href="#">
+                        <img src="~/images/Logo-removebg.png" class="img-fluid">
+                    </a>
+                    <ul class="navbar-nav">
+                        <li class="navitem nav-item active ">
+                            <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Home</a>
+                        </li>
+                        <li class="navitem nav-item ">
+                            <a style="color:white" class="nav-link" asp-action="History" asp-controller="Currency">Privacy</a>
+                        </li>
+                        <li class="navitem nav-item">
+                            <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Features</a>
+                        </li>
+                    </ul>
+                </nav>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-opacity-100" >
-        <a class="navbar-brand navimg" href="#">
-            <img src="~/images/Logo-removebg.png" class="img-fluid">
-        </a>
-        <ul class="navbar-nav">
-            <li class="navitem nav-item active ">
-                <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Home</a>
-            </li>
-            <li class="navitem nav-item ">
-                <a style="color:white" class="nav-link" asp-action="History" asp-controller="Currency">Privacy</a>
-            </li>
-            <li class="navitem nav-item">
-                <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Features</a>
-            </li>
-        </ul>
-    </nav>
 
-  
-        <h1 class="heading"> Currency Converter</h1>
+                <h1 class="heading"> Currency Converter</h1>
 
-        <h1 class="subheading">Check Live Currency Exhange Rates</h1>
+                <h1 class="subheading">Check Live Currency Exhange Rates</h1>
 
-        <center>
-            <div class="wrapper">
+                <center>
+                    <div class="wrapper">
 
-                <form>
+                        <form style="width:100%">
 
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <center>
+                            <div style="display:grid;grid-template-rows:0.5fr 1fr 0.5fr 1fr;grid-gap:2rem;grid-template-columns:1fr 1fr 1fr ;">
                                 <div>
                                     <label asp-for="@Model.Amount"></label>
                                 </div>
-                            </center>
-                            <div>
-                                <input asp-for="@Model.Amount" style="width:320px;height:35px;" id="amount" type="number" min="1" step="1" max="@double.MaxValue" value="1" />
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4">
-                            <center>
                                 <div>
                                     <label> From</label>
                                 </div>
-                            </center>
-                            <div class="row">
-                                <div class="col-1">
-                                    <img id="url" src="https://flagcdn.com/48x36/ad.png" alt="image" />
-                                </div>
-                                <div class="col-2">
-                                    <select style="margin-left:25px" class="sourcedropdown btn  btn-light  border-primary dropdown-menu-sm-right" id="SRC" asp-for="@Model.Source" asp-items="@Model.CurrencyNames"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4 ">
-                            <center>
                                 <div>
                                     <label> To</label>
                                 </div>
-                            </center>
+                                <div>
+                                    <input asp-for="@Model.Amount" style="width:320px;height:35px;" id="amount" type="number" min="1" step="1" max="@double.MaxValue" value="1" />
 
-                            <div class="row">
-                                <div class="col-1">
-                                    <img id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
                                 </div>
-                                <div class="col-2">
-                                    <select style="margin-left:25px" class="destdropdown btn  btn-light border-primary dropdown-menu-sm-right " id="DEST" asp-items="@Model.CurrencyNames" asp-for="@Model.Destination"></select>
+                                <div>
+                                    <img id="url" src="https://flagcdn.com/48x36/ad.png" alt="image" />
+                                    <select style="font-size:70%;text-align:left" class=" btn  btn-light  border-primary dropdown-menu-sm-right" asp-for="@Model.Source" asp-items="@Model.CurrencyNames" id="SRC"></select>
+
+                                </div>
+                                <div>
+                                    <img id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
+                                    <select style="font-size:70%;text-align:left" class=" btn  btn-light border-primary dropdown-menu-sm-right " asp-for="@Model.Destination" asp-items="@Model.CurrencyNames" id="DEST"></select>
+
+                                </div>
+                                <div>
+                                    <h6 id="prevamtlabel"></h6>
+                                </div>
+                                <div>
+                                    <h6 id="prevsrclabel"></h6>
+                                </div>
+                                <div>
+                                    <h6 id="prevdestlabel"></h6>
+                                </div>
+                                <div>
+                                    <h4 id="prevamt"></h4>
+                                </div>
+                                <div>
+                                    <h4 id="prevsrc"></h4>
+                                </div>
+                                <div>
+                                    <h4 id="prevdest"></h4>
                                 </div>
                             </div>
 
-                        </div>
-                        &nbsp;
-                        
+                        </form>
                     </div>
-                    <div>
-                        <div style="margin-top:5%;margin-left:3%" class="row">
-                            <div class="col-1"> <h3 id="Sourcename"> </h3></div>
-                            <p></p>
-                            <div class="col-2"> <h3 id="changeresult" style="width:fit-content"> </h3></div>
-                            <div class="col-3"> <h3 id="DestinationName"></h3></div>
-                            <div class="col-4"> <h3 id="PrevOp"> </h3></div>
-                        </div>
-                    </div>
- 
-            </form>
+
+                </center>
+            </div>
+      
+            <div id="bottom" style="display:grid;grid-template-rows:0.5fr 1fr ;grid-gap:2rem;grid-template-columns:1fr ;">
+                <div>
+                    <center>
+                        <button id="fetchbtn" type="button" style="margin-top:50px" class="btn btn-primary">Get Exchange Rates </button>
+                    </center>
+                    
                 </div>
-
-        </center>
-</div>
-<div id="bottom" style="margin-top:8%">
-    <div>
-        <button id="fetchbtn" type="button" class="btn btn-primary" style="float:right;margin-right:7%;margin-top:3%;">Get Exchange Rates </button>
-
-    </div>
-    <center>
-        <table id="tab" style="margin-top:30%">
-            <thead>
-                <tr>
-                    <th>sno</th>
-                    <th>name</th>
-                    <th>rollno</th>
-                    <th>caste</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                </tr>
-                <tr>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                </tr>
-                <tr>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                </tr>
-                <tr>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                </tr>
-            </tbody>
-        </table>
-    </center>
-</div>
-
-
-<script src="~/js/Script.js"></script>
+                <div style="margin-top:100px">
+                    <center>
+                        <table id="tab" class="content-table" style="margin-top:5%;" onclick="addRowHandlers()">
+                            <thead>
+                                <tr>
+                                    <th>Source Currency</th>
+                                    <th>Destination Currency</th>
+                                    <th>Amount</th>
+                                    <th>Result</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                   
+                                </tr>
+                            </tbody>
+                        </table>
+                    </center>
+                </div>
+            </div>
+    <script src="~/js/Script.js"></script>

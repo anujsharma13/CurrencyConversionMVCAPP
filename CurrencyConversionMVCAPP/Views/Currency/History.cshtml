@@ -1,2 +1,111 @@
-﻿@model Queue<CurrencyConversionMVCAPP.ViewModels.CurrencyResultViewModel>
+﻿@model CurrencyConversionMVCAPP.Models.Currency
 
+<div class="start" id="top">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-opacity-100">
+        <a class="navbar-brand navimg" href="#">
+            <img src="~/images/Logo-removebg.png" class="img-fluid">
+        </a>
+        <ul class="navbar-nav">
+            <li class="navitem nav-item active ">
+                <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Home</a>
+            </li>
+            <li class="navitem nav-item ">
+                <a style="color:white" class="nav-link" asp-action="History" asp-controller="Currency">Privacy</a>
+            </li>
+            <li class="navitem nav-item">
+                <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Features</a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <h1 class="heading"> Currency Converter</h1>
+
+    <h1 class="subheading">Check Live Currency Exhange Rates</h1>
+
+    <center>
+        <div class="wrapper">
+
+            <form style="width:95%">
+
+                <div style="border:2px solid black;display:grid;grid-template-rows:50px 150px;grid-template-columns:150fr 150fr 150fr ;">
+                    <div>
+                        <label asp-for="@Model.Amount"></label>
+                    </div>
+                    <div >
+                        <label> From</label>
+                    </div>
+                    <div >
+                        <label> To</label>
+                    </div>
+                    <div >
+                        <input asp-for="@Model.Amount" style="width:320px;height:35px;" id="amount" type="number" min="1" step="1" max="@double.MaxValue" value="1" />
+
+                    </div>
+                    <div>
+                        <img id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
+                        <select style="margin-left:25px" class=" btn  btn-light  border-primary dropdown-menu-sm-right" id="SRC"></select>
+
+                    </div>
+                    <div>
+                        <img id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
+                        <select style="margin-left:25px" class=" btn  btn-light border-primary dropdown-menu-sm-right " id="DEST"></select>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </center>
+</div>
+<div id="bottom" style="margin-top:8%">
+    <div>
+        <div>
+            <button id="fetchbtn" type="button" class="btn btn-primary" style="margin-right:7%;margin-top:3%;">Get Exchange Rates </button>
+
+        </div>
+    </div>
+    <center>
+        <table id="tab" class="content-table" style="margin-top:10%">
+            <thead>
+                <tr>
+                    <th>sno</th>
+                    <th>name</th>
+                    <th>rollno</th>
+                    <th>caste</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>aajaj</td>
+                    <td>aajaj</td>
+                    <td>aajaj</td>
+                    <td>aajaj</td>
+                </tr>
+                <tr>
+                    <td>aajaj</td>
+                    <td>aajaj</td>
+                    <td>aajaj</td>
+                    <td>aajaj</td>
+                </tr>
+                <tr>
+                    <td>aajaj</td>
+                    <td>aajaj</td>
+                    <td>aajaj</td>
+                    <td>aajaj</td>
+                </tr>
+                <tr>
+                    <td>aajaj</td>
+                    <td>aajaj</td>
+                    <td>aajaj</td>
+                    <td>aajaj</td>
+                </tr>
+            </tbody>
+        </table>
+    </center>
+</div>
+
+
+<script src="~/js/Script.js"></script>
