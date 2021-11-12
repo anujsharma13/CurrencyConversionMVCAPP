@@ -1,110 +1,130 @@
 ﻿@model CurrencyConversionMVCAPP.Models.Currency
-   
-            <div class="start" id="top">
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-opacity-100">
-                    <a class="navbar-brand navimg" href="#">
-                        <img src="~/images/Logo-removebg.png" class="img-fluid">
-                    </a>
-                    <ul class="navbar-nav">
-                        <li class="navitem nav-item active ">
-                            <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Home</a>
-                        </li>
-                        <li class="navitem nav-item ">
-                            <a style="color:white" class="nav-link" asp-action="History" asp-controller="Currency">Privacy</a>
-                        </li>
-                        <li class="navitem nav-item">
-                            <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Features</a>
-                        </li>
-                    </ul>
-                </nav>
+<div class="start" id="top">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-opacity-100">
+        <a class="navbar-brand navimg" href="#">
+            <img src="~/images/Logo-removebg.png" class="img-fluid">
+        </a>
+        <ul class="navbar-nav">
+            <li class="navitem nav-item active ">
+                <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Home</a>
+            </li>
+            <li class="navitem nav-item ">
+                <a style="color:white" class="nav-link" asp-action="History" asp-controller="Currency">Privacy</a>
+            </li>
+            <li class="navitem nav-item">
+                <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Features</a>
+            </li>
+        </ul>
+    </nav>
 
 
-                <h1 class="heading"> Currency Converter</h1>
+    <h1 class="heading"> Currency Converter</h1>
 
-                <h1 class="subheading">Check Live Currency Exhange Rates</h1>
+    <h1 class="subheading">Check Live Currency Exhange Rates</h1>
 
-                <center>
-                    <div class="wrapper">
+    <center>
+        <div class="wrapper" data-aos="fade-in">
 
-                        <form style="width:100%">
+            <form style="width:100%">
 
-                            <div style="display:grid;grid-template-rows:0.5fr 1fr 0.5fr 1fr;grid-gap:2rem;grid-template-columns:1fr 1fr 1fr ;">
-                                <div>
-                                    <label asp-for="@Model.Amount"></label>
-                                </div>
-                                <div>
-                                    <label> From</label>
-                                </div>
-                                <div>
-                                    <label> To</label>
-                                </div>
-                                <div>
-                                    <input asp-for="@Model.Amount" style="width:320px;height:35px;" id="amount" type="number" min="1" step="1" max="@double.MaxValue" value="1" />
+                <div style="display:grid;grid-template-rows:0.5fr 1fr 0.5fr;grid-template-columns:1fr 1fr 1fr ;">
+                    <div>
+                        <label data-aos="zoom-in" asp-for="@Model.Amount"></label>
+                    </div>
+                    <div>
+                        <label> From</label>
+                    </div>
+                    <div>
+                        <label> To</label>
+                    </div>
+                    <div>
+                        <input asp-for="@Model.Amount" style="width:320px;height:35px;" id="amount" type="number" min="1" step="1" max="@double.MaxValue" value="1" />
 
-                                </div>
-                                <div>
-                                    <img id="url" src="https://flagcdn.com/48x36/ad.png" alt="image" />
-                                    <select style="font-size:70%;text-align:left" class=" btn  btn-light  border-primary dropdown-menu-sm-right" asp-for="@Model.Source" asp-items="@Model.CurrencyNames" id="SRC"></select>
+                    </div>
+                    <div>
+                        <img id="url" src="https://flagcdn.com/48x36/ad.png" alt="image" />
+                        <select style="font-size:70%;text-align:left;margin-left:5px" class=" btn  btn-light  border-primary dropdown-menu-sm-right" asp-for="@Model.Source" asp-items="@Model.CurrencyNames" id="SRC"></select>
 
-                                </div>
-                                <div>
-                                    <img id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
-                                    <select style="font-size:70%;text-align:left" class=" btn  btn-light border-primary dropdown-menu-sm-right " asp-for="@Model.Destination" asp-items="@Model.CurrencyNames" id="DEST"></select>
-
-                                </div>
-                                <div>
-                                    <h6 id="prevamtlabel"></h6>
-                                </div>
-                                <div>
-                                    <h6 id="prevsrclabel"></h6>
-                                </div>
-                                <div>
-                                    <h6 id="prevdestlabel"></h6>
-                                </div>
-                                <div>
-                                    <h4 id="prevamt"></h4>
-                                </div>
-                                <div>
-                                    <h4 id="prevsrc"></h4>
-                                </div>
-                                <div>
-                                    <h4 id="prevdest"></h4>
-                                </div>
-                            </div>
-
-                        </form>
+                    </div>
+                    <div>
+                        <img id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
+                        <select style="font-size: 70%; text-align: left; margin-left: 5px" class=" btn  btn-light border-primary dropdown-menu-sm-right " asp-for="@Model.Destination" asp-items="@Model.CurrencyNames" id="DEST"></select>
                     </div>
 
-                </center>
-            </div>
-      
-            <div id="bottom" style="display:grid;grid-template-rows:0.5fr 1fr ;grid-gap:2rem;grid-template-columns:1fr ;">
-                <div>
-                    <center>
-                        <button id="fetchbtn" type="button" style="margin-top:50px" class="btn btn-primary">Get Exchange Rates </button>
-                    </center>
-                    
                 </div>
-                <div style="margin-top:100px">
-                    <center>
-                        <table id="tab" class="content-table" style="margin-top:5%;" onclick="addRowHandlers()">
-                            <thead>
-                                <tr>
-                                    <th>Source Currency</th>
-                                    <th>Destination Currency</th>
-                                    <th>Amount</th>
-                                    <th>Result</th>
-                                    <th>Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                   
-                                </tr>
-                            </tbody>
-                        </table>
-                    </center>
+                <div style="display:grid;grid-template-rows:0.5fr 0.5fr 0.5fr 0.5fr;grid-template-columns:1fr 1fr 1fr;" >
+                    <div id="Recentdiv" data-aos="flip-left" style="width:fit-content;padding:5px;margin-left:46px;padding-right:52px;padding-left:52px">
+                        <h4 id="Recenttransaction"><b></b></h4>
+                        <h6 id="prevamt" style="overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; white-space: nowrap; width: 100%;"></h6>
+
+                        <h6 id="prevsrc"></h6>
+                        <h6 id="To" ></h6>
+
+                        <h6 id="prevdest" ></h6>
+                        <h6 id="prevresult" ></h6>
+                    </div>
+                    <div id="buttondiv" >
+
+                        <button id="fetchbtn" type="button" style="margin-top:30px" class="btn btn-primary">Get Exchange Rates </button>
+                        <h4 style="margin-top:20px" id="Differencelabel"></h4>
+                        <h6  id="Difference"></h6>
+
+                    </div>
+                    <div id="Outputdiv" data-aos="flip-left" style="width:fit-content;padding:5px;margin-left:76px;padding-right:90px;padding-left:52px">
+                        <h4 id="outputlabel"><b></b></h4>
+                        <h6 id="output"></h6>
+                        
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+
+    </center>
+</div>
+
+<div id="bottom">
+
+    <div style="display:grid;grid-template-rows:1fr;grid-template-columns:1fr">
+        <center>
+            <div class="flip-card" style="margin-top: 70px">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="~/images/history.jpg" style="width:300px;height:170px;">
+                    </div>
+                    <div class="flip-card-back">
+                        <center>
+                            <h6>Recent Transactions</h6>
+                            <table id="tab" class="content-table" style="margin-top:5%;text-overflow:ellipsis;overflow:hidden;" onclick="addRowHandlers()">
+                                <thead>
+                                    <tr>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Amount</th>
+                                        <th>Result</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </center>
+                    </div>
+
                 </div>
             </div>
-    <script src="~/js/Script.js"></script>
+        </center>
+    </div>
+    </div>
+
+<script src="~/js/Script.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800
+    });
+</script>

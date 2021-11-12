@@ -27,32 +27,25 @@
     <center>
         <div class="wrapper">
 
-            <form style="width:95%">
+            <form style="width:100%">
 
-                <div style="border:2px solid black;display:grid;grid-template-rows:50px 150px;grid-template-columns:150fr 150fr 150fr ;">
-                    <div>
-                        <label asp-for="@Model.Amount"></label>
-                    </div>
-                    <div >
-                        <label> From</label>
-                    </div>
-                    <div >
-                        <label> To</label>
-                    </div>
-                    <div >
-                        <input asp-for="@Model.Amount" style="width:320px;height:35px;" id="amount" type="number" min="1" step="1" max="@double.MaxValue" value="1" />
+                <div style="display:grid;grid-template-rows:0.5fr 1fr 0.5fr 1fr;grid-template-columns:1fr ;width:100%">
+                    <div style="border:2px solid black">
 
                     </div>
-                    <div>
-                        <img id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
-                        <select style="margin-left:25px" class=" btn  btn-light  border-primary dropdown-menu-sm-right" id="SRC"></select>
+                    <div style="border: 2px solid black">
 
                     </div>
-                    <div>
-                        <img id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
-                        <select style="margin-left:25px" class=" btn  btn-light border-primary dropdown-menu-sm-right " id="DEST"></select>
+                    <div style="border: 2px solid black">
 
                     </div>
+                    <div style="border: 2px solid black">
+
+                    </div>
+                    <div style="border: 2px solid black">
+
+                    </div>
+
                 </div>
 
             </form>
@@ -60,52 +53,32 @@
 
     </center>
 </div>
-<div id="bottom" style="margin-top:8%">
-    <div>
-        <div>
-            <button id="fetchbtn" type="button" class="btn btn-primary" style="margin-right:7%;margin-top:3%;">Get Exchange Rates </button>
 
-        </div>
+<div id="bottom" style="display:grid;grid-template-rows:0.5fr 1fr ;grid-template-columns:1fr ;">
+
+    <div style="margin-top:50px">
+        <center>
+            <table id="tab" class="content-table" style="margin-top:5%;text-overflow:ellipsis;overflow:hidden;" onclick="addRowHandlers()">
+                <thead>
+                    <tr>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Amount</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+        </center>
     </div>
-    <center>
-        <table id="tab" class="content-table" style="margin-top:10%">
-            <thead>
-                <tr>
-                    <th>sno</th>
-                    <th>name</th>
-                    <th>rollno</th>
-                    <th>caste</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                </tr>
-                <tr>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                </tr>
-                <tr>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                </tr>
-                <tr>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                    <td>aajaj</td>
-                </tr>
-            </tbody>
-        </table>
-    </center>
 </div>
-
-
 <script src="~/js/Script.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800
+    });
+</script>
