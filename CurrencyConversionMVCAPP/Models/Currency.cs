@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using CurrencyConversionMVCAPP.Repository;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,8 +10,9 @@ namespace CurrencyConversionMVCAPP.Models
 {
     public class Currency
     {
-        [Required]
-        [Range(1, double.MaxValue)]
+        [Required(ErrorMessage ="This Field is required")]
+        [Range(0.1, 9e300)]
+      //  [NumberValidation(allowed:"e")]
         public double Amount { get; set; } = 1;
         [Required]
         public string Source { get; set; }

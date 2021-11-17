@@ -258,3 +258,8 @@ function buttonclickhandle() {
     xhr.send();
 }
 /*setInterval(buttonclickhandle, 60000);*/
+document.getElementById('amount').onchange = function () {
+    let changedvalue = parseFloat(Amt.value);
+   // Amt.value = changedvalue.toFixed(2);
+
+};
