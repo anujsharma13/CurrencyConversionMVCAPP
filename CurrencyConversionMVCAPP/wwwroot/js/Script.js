@@ -31,13 +31,16 @@ let outputlabel = document.getElementById('outputlabel');
 let Outputdiv = document.getElementById('Outputdiv');
 let Difference = document.getElementById('Difference');
 let Differencelabel = document.getElementById('Differencelabel');
+
+let onrate = document.getElementById('onrate');
+let onratelabel = document.getElementById('onratelabel');
 console.log("ajax");
 let Resultdata=0;
-
+let AmtData = 0;
 function addRowHandlers() {
     var table = document.getElementById("tab");
     var rows = table.getElementsByTagName("tr");
-    var srcdata, destdata, Amtdata;
+    var srcdata, destdata;
     for (i = 0; i < rows.length; i++) {
         var currentRow = table.rows[i];
         var createClickHandler = function (row) {
@@ -49,14 +52,7 @@ function addRowHandlers() {
               
                  srcdata = cell1.innerHTML;
                 destdata = cell2.innerHTML;
-                Amtdata = cell3.innerHTML.toString();
-                if (Amtdata.length > 15) {
-                    Amtdata = parseInt(Amtdata);
-                    Amtdata = Amtdata.toExponential(14);
-                }
-                else {
-                    Amtdata = cell3.innerHTML;
-                }
+                Amtdata = cell3.innerHTML;
                 Resultdata = cell4.innerHTML;
                
                 
@@ -64,10 +60,10 @@ function addRowHandlers() {
 
                 //prev data
                 Recenttransaction.innerHTML = "Recent Transaction";
-                prevAmt.innerHTML = "Amount - "+Amtdata;
-                prevsrc.innerHTML = "From - "+srcdata.toUpperCase();
-                prevdest.innerHTML = "To - "+destdata.toUpperCase();
-                prevresult.innerHTML = "Rate - " + Resultdata;
+                prevAmt.innerHTML = "Amount : "+Amtdata;
+                prevsrc.innerHTML = "From : "+srcdata.toUpperCase();
+                prevdest.innerHTML = "To : "+destdata.toUpperCase();
+                prevresult.innerHTML = "Value : " + Resultdata;
                
                 //prev history label
                 prevAmtlabel.innerHTML = "Prev Amount"
@@ -90,7 +86,7 @@ function buttonclickhandler() {
     console.log("clicked");
 
     let str = btn.value.substring(4, 6).toLowerCase();
-    let image = "https://flagcdn.com/48x36/str.png";
+    let image = "https://flagcdn.com/48x36/str.png";  
     url.setAttribute("src", image.substring(0, 26) + str + image.substring(29, 33));
     console.log(image.substring(0, 26) + str + image.substring(29, 33));
 }
@@ -125,8 +121,10 @@ function buttonclickhandle() {
         //console.log("-------------------------parsed----------------------------");
         //console.log(parsed);
         let result = JSON.parse(parsed);
-        outputlabel.innerHTML="Converted Rate"
+        outputlabel.innerHTML="Converted Value"
         output.innerHTML = result['Result'];
+        onratelabel.innerHTML = "At Rate";
+        onrate.innerHTML = result['oneResult'];
        // Recenttransaction.innerHTML = "Recent Transaction";
         //Recentdiv.style.border = "outset";
         //Outputdiv.style.border = "outset"
@@ -146,19 +144,18 @@ function buttonclickhandle() {
         if (rowCount >= 5) {
             table.deleteRow(1);
             var newrow = table.insertRow(5);
-
             var cell1 = newrow.insertCell(0);
             var cell2 = newrow.insertCell(1);
             var cell3 = newrow.insertCell(2);
             var cell4 = newrow.insertCell(3);
             cell1.innerHTML = str.toUpperCase();
             cell2.innerHTML = str1.toUpperCase();
-            cell3.innerHTML = amount;
+            cell3.innerHTML = result['Amount'];
             cell4.innerHTML = result['Result'];
-            if (prevAmt.innerHTML.length > 0) {
-                Differencelabel.innerHTML = "Current-Recent";
-                Difference.innerHTML = (output.innerHTML - Resultdata);
-            }
+            //if (prevAmt.innerHTML.length > 0) {
+            //    Differencelabel.innerHTML = "Current-Recent";
+            //    Difference.innerHTML = (output.innerHTML - Resultdata);
+            //}
             //let current = new Date();
             //let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
             //let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
@@ -174,18 +171,55 @@ function buttonclickhandle() {
             var cell4 = newrow.insertCell(3);
             cell1.innerHTML = str.toUpperCase();
             cell2.innerHTML = str1.toUpperCase();
-            cell3.innerHTML = amount;
+            cell3.innerHTML = result['Amount'];
             cell4.innerHTML = result['Result'];
             
-            if (prevAmt.innerHTML.length > 0) {
-                Differencelabel.innerHTML = "Current-Recent";
-                Difference.innerHTML = (output.innerHTML - Resultdata);
-            }
+            //if (prevAmt.innerHTML.length > 0) {
+            //    Differencelabel.innerHTML = "Current-Recent";
+            //    Difference.innerHTML = (output.innerHTML - Resultdata);
+            //}
         //    let current = new Date();
         //    let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
         //    let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
         //    let dateTime = cDate + ' ' + cTime;
         //    cell5.innerHTML = dateTime;
+        }
+        if (rowCount > 0) {
+            console.log("---------"+rowCount+"--------------");
+            if (rowCount >= 5) {
+                var number1 = table.rows[rowCount-1].cells.item(0).innerHTML;
+                var number2 = table.rows[rowCount-1].cells.item(1).innerHTML;
+                var number3 = table.rows[rowCount-1].cells.item(2).innerHTML;
+                var number4 = table.rows[rowCount-1].cells.item(3).innerHTML;
+
+                console.log(number1);
+                console.log(number2);
+                console.log(number3);
+                console.log(number4);
+                Recenttransaction.innerHTML = "Recent Transaction";
+                prevAmt.innerHTML = "Amount : " + number3;
+                prevsrc.innerHTML = "From : " + number1;
+
+                prevdest.innerHTML = "To : " + number2;
+                prevresult.innerHTML = "Value : " + number4;
+            }
+            else {
+                var number1 = table.rows[rowCount].cells.item(0).innerHTML;
+                var number2 = table.rows[rowCount].cells.item(1).innerHTML;
+                var number3 = table.rows[rowCount].cells.item(2).innerHTML;
+                var number4 = table.rows[rowCount].cells.item(3).innerHTML;
+
+                console.log(number1);
+                console.log(number2);
+                console.log(number3);
+                console.log(number4);
+                Recenttransaction.innerHTML = "Recent Transaction";
+                prevAmt.innerHTML = "Amount : " + number3;
+                prevsrc.innerHTML = "From : " + number1;
+
+                prevdest.innerHTML = "To : " + number2;
+                prevresult.innerHTML = "Value : " + number4;
+            }
         }
         ////let SourceVal = str.toUpperCase();
         //let ResultVal = result["Result"];

@@ -52,17 +52,9 @@ namespace CurrencyTest
         {
             double currency = 75;
             apicall.Setup(x => x.apidata("inr", "usd")).ReturnsAsync(currency);
-            //var result = await controller.helper("inr", "usd");
-            //assert.areequal(result, currency);
+            var result = await controller.helper("inr", "usd");
+            Assert.AreEqual(result, currency);
         }
-        [TestMethod]
-        public void Test_JsonToString()
-        {
-
-            string actual = copyJsonData.Object.Convert();
-            Assert.IsNotNull(actual);
-        }
-
     
         [TestMethod]
         public void Test_GetNames()

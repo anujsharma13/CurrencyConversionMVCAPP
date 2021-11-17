@@ -1,7 +1,8 @@
-﻿@model CurrencyConversionMVCAPP.Models.Crypto.CryptoCurrencyData
+﻿@*@model CurrencyConversionMVCAPP.Models.Crypto.CryptoCurrencyData
 <form asp-action="Result" asp-controller="Crypto">
     <select asp-for="@Model.Source" asp-items="@Model.CurrencyNames"></select>
     <select asp-for="@Model.Destination" asp-items="@Model.CurrencyNames"></select>
     <input asp-for="@Model.Source" />
+    <span asp-validation-for="@Model.Source"></span>
     <button type="submit"></button>
-</form>
+</form>*@

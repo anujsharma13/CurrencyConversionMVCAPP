@@ -1,84 +1,139 @@
-﻿@model CurrencyConversionMVCAPP.Models.Currency
+﻿@*@model CurrencyConversionMVCAPP.Models.Currency
+<html>
+<head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
+          
+        }
+        .headcontainer {
+            display: grid;
+            grid-template-rows: repeat(auto-fit,minmax(200px,1fr));
+          
+        }
+        .item {
+            background-color: white;
+            padding:  20px 20px 2px 20px;
+            /*border-radius: 9px;
+            box-shadow: 7px 7px 20px rgb(128 128 128);*/
+        }
+        .item1 {
+            background-color: white;
+        }
+        #topimg {
+            background-image: url('../images/img8.jpg');
+            background-position: top;
+            background-repeat: no-repeat;
+            background-size:100% 65%;
+            /* // background-size: 100% 100%;*/
+        }
+        #ul_top_hypers li {
+            display: inline;
+        }
+    </style>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="~/css/HistoryStyle.css" />
+</head>
+    <body>
+        <div id="topimg">
+            <nav class="navbar navbar-expand-lg navbar-light bg-opacity-100" id="ul_top_hypers" style="padding:10px">
+                
+                <ul class="navbar-nav">
+                   
+                    <li class="navitem nav-item active ">
+                        <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Home</a>
+                    </li>
+                    <li class="navitem nav-item ">
+                        <a style="color:white" class="nav-link" asp-action="History" asp-controller="Currency">Privacy</a>
+                    </li>
+                    <li class="navitem nav-item">
+                        <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Features</a>
+                    </li>
+                </ul>
+            </nav>
+            <h1 style="margin-top:5%" class="heading"> Currency Converter</h1>
 
-<div class="start" id="top">
+            <h1 class="subheading">Check Live Currency Exhange Rates</h1>
+            <center>
+                <div style="width:90%;height:50%;margin-top:5%">
+                    <div class="headcontainer">
+                        <div class="container wrapper">
+                            <div class="item" >
+                                <h4> Amount </h4>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-opacity-100">
-        <a class="navbar-brand navimg" href="#">
-            <img src="~/images/Logo-removebg.png" class="img-fluid">
-        </a>
-        <ul class="navbar-nav">
-            <li class="navitem nav-item active ">
-                <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Home</a>
-            </li>
-            <li class="navitem nav-item ">
-                <a style="color:white" class="nav-link" asp-action="History" asp-controller="Currency">Privacy</a>
-            </li>
-            <li class="navitem nav-item">
-                <a style="color:white" class="nav-link" asp-action="Index" asp-controller="Currency">Features</a>
-            </li>
-        </ul>
-    </nav>
+                                <input asp-for="@Model.Amount" id="amount" step="1" type="number" style="margin-top:5%;width:300px;height:30px" />
+                                <span asp-validation-for="@Model.Amount"></span>
+                            </div>
 
+                            <div class="item">
+                                <h4> From</h4>
+                                <img id="url" src="https://flagcdn.com/48x36/ad.png" alt="image" />
+                                <select style="font-size:70%;text-align:left;margin-left:5px;height:30px" class=" btn  btn-light  border-primary dropdown-menu-sm-right" asp-for="@Model.Source" asp-items="@Model.CurrencyNames" id="SRC"></select>
 
-    <h1 class="heading"> Currency Converter</h1>
+                            </div>
+                            <div class="item" >
+                                <h4> To</h4>
+                                <img id="url1" src="https://flagcdn.com/48x36/ad.png" alt="image" />
+                                <select style="font-size: 70%; text-align: left; margin-left: 5px; height: 30px" class=" btn  btn-light border-primary dropdown-menu-sm-right " asp-for="@Model.Destination" asp-items="@Model.CurrencyNames" id="DEST"></select>
 
-    <h1 class="subheading">Check Live Currency Exhange Rates</h1>
+                            </div>
 
-    <center>
-        <div class="wrapper">
+                            <div class="item">
+                                <h1> heading</h1>
+                                <h1>heading</h1>
+                            </div>
+                            <div class="item">
+                                <button id="fetchbtn" type="button" style="margin-top:30px" class="btn btn-primary">Get Exchange Rates </button>
+                                <h4 style="margin-top:20px" id="Differencelabel"></h4>
+                                <h6 id="Difference"></h6>
+                            </div>
+                            <div class="item" >
+                                <h1> heading</h1>
+                                <h1>heading</h1>
+                            </div>
+                          
+                        </div>
+                        <div>
+                            <div class="flip-card" style="margin-top: 70px">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <img src="~/images/history.jpg" style="width:300px;height:170px;">
+                                    </div>
+                                    <div class="flip-card-back">
 
-            <form style="width:100%">
+                                        <h6>Recent Transactions</h6>
+                                        <table id="tab" class="content-table" style="margin-top:2%;text-overflow:ellipsis;overflow:hidden;" onclick="addRowHandlers()">
+                                            <thead>
+                                                <tr>
+                                                    <th>From</th>
+                                                    <th>To</th>
+                                                    <th>Amount</th>
+                                                    <th>Result</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
 
-                <div style="display:grid;grid-template-rows:0.5fr 1fr 0.5fr 1fr;grid-template-columns:1fr ;width:100%">
-                    <div style="border:2px solid black">
+                                    </div>
 
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div style="border: 2px solid black">
-
-                    </div>
-                    <div style="border: 2px solid black">
-
-                    </div>
-                    <div style="border: 2px solid black">
-
-                    </div>
-                    <div style="border: 2px solid black">
-
-                    </div>
-
                 </div>
-
-            </form>
+            </center>
         </div>
+        <script src="~/js/Script.js"></script>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init({
+                duration: 800
+            });
+        </script>
+    </body>
 
-    </center>
-</div>
-
-<div id="bottom" style="display:grid;grid-template-rows:0.5fr 1fr ;grid-template-columns:1fr ;">
-
-    <div style="margin-top:50px">
-        <center>
-            <table id="tab" class="content-table" style="margin-top:5%;text-overflow:ellipsis;overflow:hidden;" onclick="addRowHandlers()">
-                <thead>
-                    <tr>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Amount</th>
-                        <th>Result</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    </tr>
-                </tbody>
-            </table>
-        </center>
-    </div>
-</div>
-<script src="~/js/Script.js"></script>
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-    AOS.init({
-        duration: 800
-    });
-</script>
+</html>*@

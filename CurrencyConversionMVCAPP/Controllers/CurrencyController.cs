@@ -4,7 +4,6 @@ using CurrencyConversionMVCAPP.Repository;
 using CurrencyConversionMVCAPP.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Refit;
 using System;
 using System.Threading.Tasks;
 
@@ -45,8 +44,12 @@ namespace CurrencyConversionMVCAPP.Controllers
             return View("Result");
         }
         [HttpGet]
-        public async Task<JsonResult> Result(Currency _currency)
+        public async Task<IActionResult> Result(Currency _currency)
         {
+            if(!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
             _currency.Source = _currency.Source.ToUpper();
             _currency.Destination = _currency.Destination.ToUpper();
             string json = copyJsonData.Convert();
@@ -59,8 +62,9 @@ namespace CurrencyConversionMVCAPP.Controllers
             {
                  source = _currency.Source.Substring(0, 3).ToUpper();
                  Destination = _currency.Destination.Substring(0, 3).ToUpper();
-                result = await apicall.apidata(source, Destination);
-                revresult = await apicall.apidata(Destination, source);
+                // result = await apicall.apidata(source, Destination);
+                // revresult = await apicall.apidata(Destination, source);
+                result = await helper(source,Destination);
             }
             catch(Exception e)
             {
@@ -80,6 +84,7 @@ namespace CurrencyConversionMVCAPP.Controllers
             CurrencyResultViewModel model = new CurrencyResultViewModel()
             {
                 currency = _currency,
+                Amount=_currency.Amount,
                 Result = result * _currency.Amount,
                 ImgSrc = SrcUrl,
                 ImgDest = DestUrl,
@@ -95,8 +100,25 @@ namespace CurrencyConversionMVCAPP.Controllers
         }
         public IActionResult History()
         {
-            var Historyqueue = CurrencyCache.currency;
-            return View();
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
+            string json = copyJsonData.Convert();
+            var Deserializeobj = jsonToList.Convert(json);
+            var list = getNames.get(Deserializeobj);
+            Currency currency = new Currency()
+            {
+                Source = "",
+                Destination = "",
+                CurrencyNames = list
+            };
+            return View("History", currency);
+        }
+        public async Task<double> helper(string src,string dest)
+        {
+            var result = await apicall.apidata(src,dest);
+            return result;
         }
     }
 }

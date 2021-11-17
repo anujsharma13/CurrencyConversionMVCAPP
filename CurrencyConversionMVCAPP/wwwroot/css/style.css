@@ -2,37 +2,17 @@
     margin:0;
     padding:0;
 }
-#top {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 60%;
-    top: 0;
-    background-image: url('../images/img8.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-}
+
 .wrapper {
-    width: 90%;
+    width: fit-content;
     padding: 1%;
-    display:flex;
+    /*display:flex;*/
     border-radius: 9px;
-    height: 250px;
+    height: fit-content;
     background-color:white;
-    margin-top:3%;
     box-shadow: 7px 7px 20px rgb(128 128 128);
 }
-#bottom {
-    position: absolute;
-    height: 40%;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-#butn{
-    margin-left:500px;
-    margin-top:40px;
-}
+
 .navimg {
     max-width: 30%;
     margin-top: 1%;

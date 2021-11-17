@@ -10,7 +10,7 @@ namespace CurrencyConversionMVCAPP.Models
     public class Currency
     {
         [Required]
-        [Range(1, double.MaxValue, ErrorMessage = "Only positive number allowed")]
+        [Range(1, double.MaxValue)]
         public double Amount { get; set; } = 1;
         [Required]
         public string Source { get; set; }
@@ -19,4 +19,4 @@ namespace CurrencyConversionMVCAPP.Models
         public IEnumerable<SelectListItem> CurrencyNames { get; set; }  
         
     }
-}
+}   
